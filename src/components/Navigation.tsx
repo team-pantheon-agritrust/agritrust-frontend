@@ -1,30 +1,36 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
-type Screen = 'landing' | 'farmer-dashboard' | 'grain-scan' | 'scan-results' | 'buyer-dashboard' | 'payment'
+type Screen =
+  | "landing"
+  | "farmer-dashboard"
+  | "grain-scan"
+  | "scan-results"
+  | "buyer-dashboard"
+  | "payment";
 
 interface Props {
-  current: Screen
-  onNavigate: (s: Screen) => void
+  current: Screen;
+  onNavigate: (s: Screen) => void;
 }
 
 export default function Navigation({ current, onNavigate }: Props) {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 12)
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
+    const handler = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
-  const isLanding = current === 'landing'
+  const isLanding = current === "landing";
 
-  if (!isLanding) return null
+  if (!isLanding) return null;
 
   return (
-    <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+    <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <div className="nav-logo">
         <LogoMark />
-        GrainTrust
+        AgriTrust
       </div>
 
       <div className="nav-links">
@@ -39,13 +45,13 @@ export default function Navigation({ current, onNavigate }: Props) {
         <button className="btn btn-ghost text-sm">Sign in</button>
         <button
           className="btn btn-primary text-sm"
-          onClick={() => onNavigate('farmer-dashboard')}
+          onClick={() => onNavigate("farmer-dashboard")}
         >
           Get started
         </button>
       </div>
     </nav>
-  )
+  );
 }
 
 function LogoMark() {
@@ -62,5 +68,5 @@ function LogoMark() {
       <circle cx="14" cy="17" r="3" fill="#EDE4D5" />
       <circle cx="14" cy="17" r="1.5" fill="#0EA5E9" />
     </svg>
-  )
+  );
 }
