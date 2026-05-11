@@ -41,9 +41,9 @@ export default function App() {
       )}
 
       {isDashboard && (
-        <div className="sidebar-layout">
+        <div className="flex min-h-screen">
           <Sidebar current={screen} onNavigate={navigate} mode={sidebarMode} />
-          <div className="sidebar-content">
+          <div className="ml-[248px] flex-1 min-w-0 bg-cream">
             {screen === 'farmer-dashboard' && <FarmerDashboard onNavigate={navigate} />}
             {screen === 'grain-scan'        && <GrainScanning onNavigate={navigate} />}
             {screen === 'scan-results'      && <GradingResults onNavigate={navigate} />}
