@@ -30,18 +30,12 @@ export default function PaymentEscrow() {
         </button>
         <div className="text-[17px] font-semibold tracking-[-0.01em] text-slate-900">Escrow & Payment</div>
         <div className="flex-1" />
-        <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-amber-100 text-amber-600">
-          <span className="w-[6px] h-[6px] rounded-full bg-current" />
-          In Escrow
-        </span>
       </div>
 
       <div className="max-w-[560px] mx-auto p-10 px-8">
         {/* Hero */}
         <div className="rounded-[28px] p-8 text-center mb-6 relative overflow-hidden" style={{ background: 'linear-gradient(135deg,#0F172A 0%,#0a2240 100%)' }}>
-          <div className="absolute -top-[100px] -right-[80px] w-[300px] h-[300px] pointer-events-none"
-            style={{ background: 'radial-gradient(circle,rgba(14,165,233,0.1) 0%,transparent 70%)' }}
-          />
+          <div className="absolute -top-[100px] -right-[80px] w-[300px] h-[300px] pointer-events-none"/>
 
           {priceInfo ? (
             <>
@@ -54,15 +48,6 @@ export default function PaymentEscrow() {
           ) : (
             <div className="text-white/50 py-4">No payment data available. Complete a scan first.</div>
           )}
-
-          <div className="w-12 h-12 rounded-[10px] border border-sky-500/25 flex items-center justify-center mx-auto mt-5 text-sky-500"
-            style={{ background: 'rgba(14,165,233,0.15)' }}>
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <rect x="3" y="10" width="16" height="11" rx="3" stroke="currentColor" strokeWidth="1.8" />
-              <path d="M7 10V7a4 4 0 018 0v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              <circle cx="11" cy="15.5" r="1.5" fill="currentColor" />
-            </svg>
-          </div>
 
           <div className="mt-5 p-3 px-4 rounded-[10px] border border-white/[0.08]" style={{ background: 'rgba(255,255,255,0.06)' }}>
             <p className="text-[13px] text-white/55 leading-[1.5]">
@@ -129,7 +114,7 @@ export default function PaymentEscrow() {
           </div>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col md:flex-row gap-3">
           <button
             className="flex-1 inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50"
             onClick={() => navigate('/buyer')}

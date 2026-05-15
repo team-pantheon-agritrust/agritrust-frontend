@@ -26,8 +26,8 @@ function HeroSection() {
         style={{ background: 'radial-gradient(circle at center,rgba(14,165,233,0.08) 0%,transparent 70%)' }}
       />
 
-      <div className="grid grid-cols-2 gap-20 items-center max-w-6xl mx-auto px-8 py-20 relative z-[1] w-full">
-        <div className="animate-fade-up">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto px-4 sm:px-8 py-16 sm:py-20 relative z-[1] w-full">
+        <div className="animate-fade-up text-center lg:text-left">
           <h1 className="text-[clamp(36px,5vw,58px)] font-extrabold tracking-[-0.04em] leading-[1.08] text-slate-900 mb-5">
             Transparent Grain Trading,{' '}
             <span style={{ background: 'linear-gradient(135deg,#0EA5E9 0%,#0284C7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -35,11 +35,11 @@ function HeroSection() {
             </span>
           </h1>
 
-          <p className="text-[17px] leading-[1.65] text-slate-500 mb-9 max-w-[480px]">
+          <p className="text-[17px] leading-[1.65] text-slate-500 mb-9 max-w-[480px] mx-auto lg:mx-0">
             AgriTrust uses computer vision to grade grain quality, set fair prices, and protect payments — connecting farmers, buyers, and aggregators across Africa.
           </p>
 
-          <div className="flex items-center gap-3 flex-wrap mb-12">
+          <div className="flex items-center justify-center lg:justify-start gap-3 flex-wrap mb-12">
             <button
               className="inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-slate-900 text-white cursor-pointer transition-all duration-[220ms] shadow-sm hover:bg-slate-800 hover:-translate-y-px hover:shadow-md"
               onClick={() => navigate('/onboarding')}
@@ -57,7 +57,7 @@ function HeroSection() {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-px bg-slate-900/[0.06] border border-slate-900/[0.06] rounded-[20px] overflow-hidden mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-slate-900/[0.06] border border-slate-900/[0.06] rounded-[20px] overflow-hidden mb-5">
             {[
               { value: '12K+', label: 'Verified farmers' },
               { value: '₦2.4B', label: 'Grain traded' },
@@ -70,7 +70,7 @@ function HeroSection() {
             ))}
           </div>
 
-          <div className="flex items-center gap-5 flex-wrap">
+          <div className="flex items-center justify-center lg:justify-start gap-5 flex-wrap">
             {['AI-verified quality', 'Escrow-protected', 'Zero fraud guarantee'].map(t => (
               <div key={t} className="flex items-center gap-[7px] text-[13px] font-medium text-slate-500">
                 <CheckIcon />
@@ -150,7 +150,7 @@ function HeroSection() {
             </div>
           </div>
 
-          <div className="absolute -bottom-2 -left-10 bg-white border border-slate-900/[0.06] rounded-[14px] shadow-xl px-4 py-3 flex items-center gap-[10px] text-[13px] font-medium text-slate-900 whitespace-nowrap animate-float-a">
+          <div className="hidden md:flex absolute -bottom-2 -left-10 bg-white border border-slate-900/[0.06] rounded-[14px] shadow-xl px-4 py-3 items-center gap-[10px] text-[13px] font-medium text-slate-900 whitespace-nowrap animate-float-a">
             <div className="w-8 h-8 rounded-full bg-emerald-50 border border-[#A7F3D0] flex items-center justify-center text-base">✓</div>
             <div>
               <div className="text-xs font-bold text-slate-900">Payment Released</div>
@@ -158,7 +158,7 @@ function HeroSection() {
             </div>
           </div>
 
-          <div className="absolute top-12 -right-8 bg-white border border-slate-900/[0.06] rounded-[14px] shadow-xl px-4 py-3 flex items-center gap-[10px] text-[13px] font-medium text-slate-900 whitespace-nowrap animate-float-b">
+          <div className="hidden md:flex absolute top-12 -right-8 bg-white border border-slate-900/[0.06] rounded-[14px] shadow-xl px-4 py-3 items-center gap-[10px] text-[13px] font-medium text-slate-900 whitespace-nowrap animate-float-b">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-ring" />
             <div>
               <div className="text-xs font-bold text-slate-900">3 buyers matched</div>
@@ -182,7 +182,7 @@ function FeaturesSection() {
   ]
 
   return (
-    <section className="py-[100px] bg-white">
+    <section className="py-[80px] sm:py-[100px] bg-white">
       <div className="w-full max-w-6xl mx-auto px-6">
         <div className="text-center max-w-[600px] mx-auto">
           <div className="text-xs font-bold tracking-[0.1em] uppercase text-sky-500 mb-3">Platform Features</div>
@@ -194,7 +194,7 @@ function FeaturesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-6 mt-[60px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-[48px] sm:mt-[60px]">
           {features.map(f => (
             <div key={f.title}
               className="p-7 bg-cream border border-sand rounded-[20px] transition-all duration-[220ms] hover:bg-white hover:border-slate-200 hover:-translate-y-0.5 hover:shadow-lg cursor-default"
@@ -220,7 +220,7 @@ function HowItWorks() {
   ]
 
   return (
-    <section className="py-[100px] bg-cream">
+    <section className="py-[80px] sm:py-[100px] bg-cream">
       <div className="w-full max-w-6xl mx-auto px-6">
         <div className="text-center max-w-[560px] mx-auto">
           <div className="text-xs font-bold tracking-[0.1em] uppercase text-sky-500 mb-3">How It Works</div>
@@ -228,8 +228,8 @@ function HowItWorks() {
             Sell grain in three steps
           </h2>
         </div>
-        <div className="relative grid grid-cols-3 gap-12 mt-[60px]">
-          <div className="absolute top-6 left-[calc(16.66%+12px)] right-[calc(16.66%+12px)] h-px"
+        <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-12 mt-[48px] sm:mt-[60px]">
+          <div className="hidden sm:block absolute top-6 left-[calc(16.66%+12px)] right-[calc(16.66%+12px)] h-px"
             style={{ background: 'linear-gradient(90deg,#E2E8F0,#38BDF8,#E2E8F0)' }}
           />
           {steps.map((s, i) => (
@@ -256,9 +256,9 @@ function StatsSection() {
   ]
 
   return (
-    <section className="py-20 bg-slate-900">
+    <section className="py-16 sm:py-20 bg-slate-900">
       <div className="w-full max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-4 gap-px bg-white/[0.06] border border-white/[0.06] rounded-[20px] overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06] border border-white/[0.06] rounded-[20px] overflow-hidden">
           {stats.map(s => (
             <div key={s.label} className="px-7 py-9 bg-slate-900 text-center">
               <div className="text-[40px] font-extrabold tracking-[-0.04em] text-white mb-[6px]">{s.value}</div>
@@ -279,7 +279,7 @@ function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-[100px] bg-white">
+    <section className="py-[80px] sm:py-[100px] bg-white">
       <div className="w-full max-w-6xl mx-auto px-6">
         <div className="text-center max-w-[560px] mx-auto">
           <div className="text-xs font-bold tracking-[0.1em] uppercase text-sky-500 mb-3">Testimonials</div>
@@ -287,7 +287,7 @@ function TestimonialsSection() {
             Trusted by the people who feed Africa
           </h2>
         </div>
-        <div className="grid grid-cols-3 gap-6 mt-[60px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-[48px] sm:mt-[60px]">
           {testimonials.map(t => (
             <div key={t.name} className="p-7 bg-cream border border-sand rounded-[20px]">
               <div className="flex gap-[3px] mb-4 text-amber-500 text-sm">
@@ -315,7 +315,7 @@ function CtaSection() {
   const navigate = useNavigate()
 
   return (
-    <section className="py-[100px] bg-slate-900 text-center relative overflow-hidden">
+    <section className="py-[80px] sm:py-[100px] bg-slate-900 text-center relative overflow-hidden">
       <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] pointer-events-none"
         style={{ background: 'radial-gradient(circle at center,rgba(14,165,233,0.12) 0%,transparent 70%)' }}
       />
@@ -349,7 +349,7 @@ function Footer() {
   return (
     <footer className="bg-white border-t border-slate-100 pt-[60px] pb-8">
       <div className="w-full max-w-6xl mx-auto px-6">
-        <div className="grid gap-12 mb-12" style={{ gridTemplateColumns: '1.5fr 1fr 1fr 1fr' }}>
+        <div className="grid gap-10 lg:gap-12 mb-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2 font-extrabold text-lg tracking-[-0.04em] text-slate-900">
               <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
@@ -381,7 +381,7 @@ function Footer() {
           ))}
         </div>
 
-        <div className="pt-8 border-t border-slate-100 flex items-center justify-between">
+        <div className="pt-8 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="text-[13px] text-slate-400">© 2025 AgriTrust Technologies Ltd. All rights reserved.</div>
           <div className="flex gap-2">
             <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700">SOC 2 Type II</span>

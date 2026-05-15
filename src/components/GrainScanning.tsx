@@ -189,13 +189,7 @@ export default function GrainScanning() {
                   />
 
                   {state === 'idle' && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-slate-900">
-                      <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center text-white">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                          <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                          <circle cx="12" cy="13" r="4" stroke="currentColor" strokeWidth="1.8"/>
-                        </svg>
-                      </div>
+                    <div className="absolute inset-0 flex flex-col items-center p-3 justify-center gap-4 bg-slate-900">
                       <div className="text-center">
                         <div className="text-white font-semibold text-[15px]">Use your camera</div>
                         <div className="text-white/50 text-[13px] mt-1">Point at your grain sample</div>
@@ -325,7 +319,7 @@ export default function GrainScanning() {
             )}
 
             <button
-              className="inline-flex items-center justify-center gap-2 w-full py-[14px] px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
+              className="inline-flex items-center justify-center gap-2 w-full py-[14px] px-3 md:px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
               disabled={state !== 'preview'}
               onClick={runScan}
             >
