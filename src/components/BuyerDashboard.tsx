@@ -80,7 +80,7 @@ const escrowItems = [
   },
 ];
 
-const availableGrains = Array.from(new Set(offers.map(offer => offer.name)))
+const availableGrains = Array.from(new Set(offers.map((offer) => offer.name)));
 
 export default function BuyerDashboard() {
   const navigate = useNavigate();
