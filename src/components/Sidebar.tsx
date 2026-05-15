@@ -138,15 +138,6 @@ export default function Sidebar({ mode, isOpen = false, onClose }: Props) {
               </span>
               {mode === "farmer" ? "Buyer View" : "Farmer View"}
             </button>
-            <button
-              className="flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left bg-transparent text-white/55 transition-all duration-[220ms] hover:bg-white/[0.07] hover:text-white/85"
-              onClick={() => handleNavigate("/")}
-            >
-              <span className="opacity-50 flex">
-                <HomeIcon />
-              </span>
-              Landing Page
-            </button>
           </div>
         </nav>
 
@@ -282,24 +273,6 @@ function SwitchIcon() {
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-function HomeIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path
-        d="M2 7l6-5 6 5v7a1 1 0 01-1 1H3a1 1 0 01-1-1V7z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6 14V10h4v4"
-        stroke="currentColor"
-        strokeWidth="1.5"
         strokeLinejoin="round"
       />
     </svg>

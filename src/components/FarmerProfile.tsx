@@ -140,18 +140,6 @@ export default function FarmerProfile() {
               <StatBox label="Platform Fee" value={`${data.platformFeePercent}%`} sub="Per transaction" />
               <StatBox label="Honesty Rate" value={`${honestRate}%`} sub="Quality consistency" color={honestRate >= 90 ? '#10B981' : '#D97706'} />
             </div>
-
-            {/* Fee note */}
-            <div className="bg-sky-50 border border-sky-100 rounded-[14px] p-4 flex gap-3 items-start">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-sky-500 shrink-0 mt-0.5">
-                <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.3" />
-                <path d="M8 7v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="8" cy="5.5" r="0.75" fill="currentColor" />
-              </svg>
-              <p className="text-[13px] text-sky-800 leading-[1.5]">
-                Your current platform fee is <strong>{data.platformFeePercent}%</strong>. Reach PLATINUM tier (score 95+) to unlock the lowest fee rate of 1%.
-              </p>
-            </div>
           </>
         )}
       </div>

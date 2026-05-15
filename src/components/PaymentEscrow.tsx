@@ -125,7 +125,7 @@ export default function PaymentEscrow() {
             className="flex-1 inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600"
             onClick={() => navigate('/verify')}
           >
-            Verify Delivery
+            Verify Payment
           </button>
         </div>
       </div>

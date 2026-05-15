@@ -51,7 +51,7 @@ export default function GradingResults() {
 
   return (
     <div>
-      <div className="bg-white border-b border-slate-900/[0.06] flex flex-col sm:flex-row sm:items-center px-4 sm:px-8 gap-3 sticky top-0 z-50">
+      <div className="bg-white border-b border-slate-900/[0.06] flex flex-col sm:flex-row sm:items-center p-4 sm:px-8 gap-3 sticky top-0 z-50">
         <button
           className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-transparent text-slate-500 cursor-pointer transition-all duration-[220ms] hover:bg-slate-100 hover:text-slate-900"
           onClick={() => navigate("/farmer/scan")}

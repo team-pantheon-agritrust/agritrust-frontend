@@ -18,6 +18,8 @@ export default function GrainScanning() {
   const [errorMsg, setErrorMsg] = useState("");
   const [cameraError, setCameraError] = useState("");
   const [dragOver, setDragOver] = useState(false);
+  const [gps, setGps] = useState<{ lat: number; lng: number } | null>(null);
+  const [locationStatus, setLocationStatus] = useState<"pending" | "granted" | "denied">("pending");
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -29,6 +31,18 @@ export default function GrainScanning() {
   }, []);
 
   useEffect(() => () => stopCamera(), [stopCamera]);
+
+  useEffect(() => {
+    if (!navigator.geolocation) { setLocationStatus("denied"); return; }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setLocationStatus("granted");
+      },
+      () => setLocationStatus("denied"),
+      { timeout: 8000 }
+    );
+  }, []);
 
   async function startCamera() {
     setCameraError("");
@@ -109,7 +123,7 @@ export default function GrainScanning() {
         grainType: selectedGrain,
         quantity: parseFloat(quantity) || 50,
         imageBase64: base64,
-        gps: { lat: 9.0765, lng: 7.3986 },
+        gps: gps ?? { lat: 9.0765, lng: 7.3986 },
         weatherData: { humidity: 65, temperature: 28 },
       });
       setScanResult(result);
@@ -213,6 +227,30 @@ export default function GrainScanning() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Location status */}
+            <div className="flex items-center gap-2 px-1">
+              {locationStatus === "pending" && (
+                <>
+                  <div className="w-[6px] h-[6px] rounded-full bg-amber-400 animate-pulse shrink-0" />
+                  <span className="text-xs text-slate-400">Detecting location…</span>
+                </>
+              )}
+              {locationStatus === "granted" && gps && (
+                <>
+                  <div className="w-[6px] h-[6px] rounded-full bg-emerald-500 shrink-0" />
+                  <span className="text-xs text-slate-400">
+                    GPS: {gps.lat.toFixed(4)}, {gps.lng.toFixed(4)}
+                  </span>
+                </>
+              )}
+              {locationStatus === "denied" && (
+                <>
+                  <div className="w-[6px] h-[6px] rounded-full bg-slate-300 shrink-0" />
+                  <span className="text-xs text-slate-400">Location unavailable — using default</span>
+                </>
+              )}
             </div>
 
             {/* Quantity */}
@@ -560,7 +598,7 @@ function ScanningState({
           ))}
         </div>
         <div className="absolute top-3 right-3 bg-sky-500/90 backdrop-blur text-white text-[11px] font-bold tracking-[0.05em] px-[10px] py-[5px] rounded-[6px]">
-          AI SCANNING · {grain.toUpperCase()}
+          AI SCANNING...
         </div>
         <div
           className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-center gap-[10px] backdrop-blur"
