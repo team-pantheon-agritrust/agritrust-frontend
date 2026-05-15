@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../context/AppContext'
+import { getTrustScore } from '../api/squad'
+import type { TrustScoreResponse } from '../types'
 
-type Screen = 'landing' | 'farmer-dashboard' | 'grain-scan' | 'scan-results' | 'buyer-dashboard' | 'payment'
-
-interface Props {
-  onNavigate: (s: Screen) => void
-}
-
-const TRUST_SCORE = 87
 const CIRCUMFERENCE = 2 * Math.PI * 52
 
 const scans = [
@@ -18,22 +15,35 @@ const scans = [
 
 const earnings = [42, 65, 38, 87, 54, 72, 91, 60, 77, 88, 55, 94]
 
-export default function FarmerDashboard({ onNavigate }: Props) {
+export default function FarmerDashboard() {
+  const navigate = useNavigate()
+  const { farmerProfile } = useAppContext()
+
+  const [trustData, setTrustData] = useState<TrustScoreResponse | null>(null)
   const [gaugeAnimated, setGaugeAnimated] = useState(false)
 
   useEffect(() => {
-    const t = setTimeout(() => setGaugeAnimated(true), 200)
-    return () => clearTimeout(t)
-  }, [])
+    if (!farmerProfile?.phone) return
 
-  const offset = CIRCUMFERENCE - (TRUST_SCORE / 100) * CIRCUMFERENCE
+    getTrustScore(farmerProfile.phone)
+      .then(res => {
+        setTrustData(res)
+        setTimeout(() => setGaugeAnimated(true), 200)
+      })
+      .catch(() => setTimeout(() => setGaugeAnimated(true), 200))
+  }, [farmerProfile])
+
+  const trustScore = trustData?.trustScore ?? 0
+  const offset = CIRCUMFERENCE - (trustScore / 100) * CIRCUMFERENCE
+  const displayName = farmerProfile ? `${farmerProfile.firstName} ${farmerProfile.lastName}` : 'Farmer'
 
   return (
     <div>
-      {/* Page header */}
       <div className="h-16 bg-white border-b border-slate-900/[0.06] flex items-center px-8 gap-4 sticky top-0 z-50">
         <div className="flex items-center gap-3 flex-1">
-          <div className="text-[17px] font-semibold tracking-[-0.01em] text-slate-900">Farmer Dashboard</div>
+          <div className="text-[17px] font-semibold tracking-[-0.01em] text-slate-900">
+            {farmerProfile ? `Welcome, ${farmerProfile.firstName}` : 'Farmer Dashboard'}
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700">
@@ -42,16 +52,14 @@ export default function FarmerDashboard({ onNavigate }: Props) {
           </span>
           <button
             className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600 hover:-translate-y-px"
-            onClick={() => onNavigate('grain-scan')}
+            onClick={() => navigate('/farmer/scan')}
           >
             <CameraIcon /> Scan New Grain
           </button>
         </div>
       </div>
 
-      {/* Body */}
       <div className="p-8 max-w-[1200px]">
-        {/* Stat cards */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           <StatCard label="Active Listings"      value="7"    delta="+2 this week" up iconBg="bg-sky-50"     iconColor="text-sky-500"     icon={<ListingIcon />} />
           <StatCard label="Earnings This Month"  value="₦302K" delta="+18.4%"      up iconBg="bg-emerald-50" iconColor="text-emerald-500"  icon={<MoneyIcon />}  />
@@ -60,9 +68,7 @@ export default function FarmerDashboard({ onNavigate }: Props) {
         </div>
 
         <div className="grid gap-6 items-start" style={{ gridTemplateColumns: '1fr 340px' }}>
-          {/* Main column */}
           <div className="flex flex-col gap-6">
-            {/* Earnings chart */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-6">
               <div className="flex items-center justify-between mb-5">
                 <div>
@@ -98,14 +104,13 @@ export default function FarmerDashboard({ onNavigate }: Props) {
               </div>
             </div>
 
-            {/* Recent scans */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden">
               <div className="px-5 pt-5">
                 <div className="flex items-center justify-between mb-5">
                   <div className="text-base font-bold tracking-[-0.02em] text-slate-900">Recent Grain Scans</div>
                   <button
                     className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-transparent text-sky-500 cursor-pointer transition-all duration-[220ms] hover:bg-slate-100"
-                    onClick={() => onNavigate('grain-scan')}
+                    onClick={() => navigate('/farmer/scan')}
                   >
                     New scan →
                   </button>
@@ -116,7 +121,7 @@ export default function FarmerDashboard({ onNavigate }: Props) {
                   <div
                     key={s.id}
                     className="flex items-center gap-[14px] px-4 py-[14px] rounded-[10px] cursor-pointer transition-all duration-[220ms] hover:bg-slate-50"
-                    onClick={() => onNavigate('scan-results')}
+                    onClick={() => navigate('/farmer/results')}
                   >
                     <div className="w-10 h-10 rounded-[10px] bg-sand flex items-center justify-center shrink-0 text-lg">
                       {s.emoji}
@@ -141,13 +146,11 @@ export default function FarmerDashboard({ onNavigate }: Props) {
             </div>
           </div>
 
-          {/* Right column */}
           <div className="flex flex-col gap-5">
-            {/* Quick scan CTA */}
             <button
               className="w-full px-6 py-4 border-0 rounded-[20px] text-[15px] font-bold text-white cursor-pointer flex items-center justify-center gap-[10px] transition-all duration-[220ms] shadow-md hover:-translate-y-0.5 hover:shadow-xl tracking-[-0.01em]"
               style={{ background: 'linear-gradient(135deg,#0F172A 0%,#1E293B 100%)' }}
-              onClick={() => onNavigate('grain-scan')}
+              onClick={() => navigate('/farmer/scan')}
             >
               <div className="w-[10px] h-[10px] rounded-full bg-sky-500 shrink-0 animate-pulse-ring" />
               <span>Scan New Grain</span>
@@ -157,8 +160,14 @@ export default function FarmerDashboard({ onNavigate }: Props) {
             </button>
 
             {/* Trust Score */}
-            <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden flex flex-col items-center p-7">
-              <div className="text-[12px] font-bold tracking-[0.05em] uppercase text-slate-400 mb-3">Trust Score</div>
+            <div
+              className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden flex flex-col items-center p-7 cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => navigate('/farmer/profile')}
+            >
+              <div className="text-[12px] font-bold tracking-[0.05em] uppercase text-slate-400 mb-1">Trust Score</div>
+              {trustData && (
+                <div className="text-[11px] text-sky-500 font-semibold mb-2">{trustData.grade} TIER</div>
+              )}
               <svg width="160" height="160" viewBox="0 0 120 120" className="overflow-visible">
                 <circle cx="60" cy="60" r="52" fill="none" stroke="#F1F5F9" strokeWidth="10" />
                 <circle
@@ -177,26 +186,42 @@ export default function FarmerDashboard({ onNavigate }: Props) {
                   </linearGradient>
                 </defs>
                 <text x="60" y="56" textAnchor="middle" style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.04em', fill: '#0F172A', fontFamily: 'Inter, sans-serif' }}>
-                  {TRUST_SCORE}
+                  {trustScore || '—'}
                 </text>
                 <text x="60" y="70" textAnchor="middle" style={{ fontSize: 12, fill: '#94A3B8', fontFamily: 'Inter, sans-serif' }}>
-                  of 100
-                </text>
-                <text x="60" y="84" textAnchor="middle" style={{ fontSize: 9, fill: '#10B981', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
-                  ↑ +3 this month
+                  {trustScore ? 'of 100' : 'loading'}
                 </text>
               </svg>
-              <div className="flex gap-2 mt-2 w-full">
-                {[{ label: 'Quality', pct: 92 },{ label: 'Delivery', pct: 85 },{ label: 'Response', pct: 78 }].map(m => (
-                  <div key={m.label} className="flex-1 text-center">
-                    <div className="text-[15px] font-bold text-slate-900 tracking-[-0.02em]">{m.pct}</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">{m.label}</div>
+
+              {trustData ? (
+                <div className="flex gap-2 mt-2 w-full">
+                  <div className="flex-1 text-center">
+                    <div className="text-[15px] font-bold text-slate-900 tracking-[-0.02em]">{trustData.totalTrades}</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Trades</div>
                   </div>
-                ))}
-              </div>
+                  <div className="flex-1 text-center">
+                    <div className="text-[15px] font-bold text-slate-900 tracking-[-0.02em]">{trustData.honestTrades}</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Honest</div>
+                  </div>
+                  <div className="flex-1 text-center">
+                    <div className="text-[15px] font-bold text-slate-900 tracking-[-0.02em]">{trustData.platformFeePercent}%</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Fee</div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-2 mt-2 w-full">
+                  {[{ label: 'Quality', pct: 92 },{ label: 'Delivery', pct: 85 },{ label: 'Response', pct: 78 }].map(m => (
+                    <div key={m.label} className="flex-1 text-center">
+                      <div className="text-[15px] font-bold text-slate-900 tracking-[-0.02em]">{m.pct}</div>
+                      <div className="text-[10px] text-slate-400 mt-0.5">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="text-[11px] text-sky-500 font-semibold mt-3">View full profile →</div>
             </div>
 
-            {/* Active offers */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
               <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-[14px]">Active Offers</div>
               {[
@@ -216,7 +241,7 @@ export default function FarmerDashboard({ onNavigate }: Props) {
               ))}
               <button
                 className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50 hover:border-slate-300 w-full mt-[14px]"
-                onClick={() => onNavigate('payment')}
+                onClick={() => navigate('/buyer/payment')}
               >
                 View all payments
               </button>
@@ -224,6 +249,20 @@ export default function FarmerDashboard({ onNavigate }: Props) {
           </div>
         </div>
       </div>
+
+      {!farmerProfile && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-xl flex items-center gap-3">
+          <span>Complete your profile to unlock all features</span>
+          <button
+            className="bg-sky-500 text-white px-3 py-1 rounded-full text-xs font-bold border-0 cursor-pointer hover:bg-sky-400 transition-colors"
+            onClick={() => navigate('/onboarding')}
+          >
+            Set up →
+          </button>
+        </div>
+      )}
+
+      <div className="sr-only">{displayName}</div>
     </div>
   )
 }

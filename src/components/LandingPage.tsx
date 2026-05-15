@@ -1,27 +1,24 @@
-type Screen = 'landing' | 'farmer-dashboard' | 'grain-scan' | 'scan-results' | 'buyer-dashboard' | 'payment'
+import { useNavigate } from 'react-router-dom'
 
-interface Props {
-  onNavigate: (s: Screen) => void
-}
-
-export default function LandingPage({ onNavigate }: Props) {
+export default function LandingPage() {
   return (
     <main>
-      <HeroSection onNavigate={onNavigate} />
+      <HeroSection />
       <FeaturesSection />
       <HowItWorks />
       <StatsSection />
       <TestimonialsSection />
-      <CtaSection onNavigate={onNavigate} />
+      <CtaSection />
       <Footer />
     </main>
   )
 }
 
-function HeroSection({ onNavigate }: Props) {
+function HeroSection() {
+  const navigate = useNavigate()
+
   return (
     <section className="min-h-screen pt-16 flex items-center bg-cream relative overflow-hidden">
-      {/* Backgrounds */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ backgroundImage: 'linear-gradient(rgba(14,165,233,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,0.03) 1px,transparent 1px)', backgroundSize: '40px 40px' }}
       />
@@ -30,7 +27,6 @@ function HeroSection({ onNavigate }: Props) {
       />
 
       <div className="grid grid-cols-2 gap-20 items-center max-w-6xl mx-auto px-8 py-20 relative z-[1] w-full">
-        {/* Left */}
         <div className="animate-fade-up">
           <h1 className="text-[clamp(36px,5vw,58px)] font-extrabold tracking-[-0.04em] leading-[1.08] text-slate-900 mb-5">
             Transparent Grain Trading,{' '}
@@ -46,7 +42,7 @@ function HeroSection({ onNavigate }: Props) {
           <div className="flex items-center gap-3 flex-wrap mb-12">
             <button
               className="inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-slate-900 text-white cursor-pointer transition-all duration-[220ms] shadow-sm hover:bg-slate-800 hover:-translate-y-px hover:shadow-md"
-              onClick={() => onNavigate('farmer-dashboard')}
+              onClick={() => navigate('/onboarding')}
             >
               Start as Farmer
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -55,13 +51,12 @@ function HeroSection({ onNavigate }: Props) {
             </button>
             <button
               className="inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50 hover:border-slate-300"
-              onClick={() => onNavigate('buyer-dashboard')}
+              onClick={() => navigate('/buyer')}
             >
               I'm a Buyer
             </button>
           </div>
 
-          {/* Stats row */}
           <div className="grid grid-cols-3 gap-px bg-slate-900/[0.06] border border-slate-900/[0.06] rounded-[20px] overflow-hidden mb-5">
             {[
               { value: '12K+', label: 'Verified farmers' },
@@ -85,10 +80,8 @@ function HeroSection({ onNavigate }: Props) {
           </div>
         </div>
 
-        {/* Right — product mockup */}
         <div className="relative flex items-center justify-center">
           <div className="w-full max-w-[440px] bg-white border border-slate-900/[0.06] rounded-[28px] shadow-2xl overflow-hidden animate-float">
-            {/* Header */}
             <div className="bg-slate-900 px-5 py-[18px] flex items-center gap-[10px]">
               <div className="flex gap-[5px]">
                 <div className="w-[10px] h-[10px] rounded-full bg-[#FF5F57]" />
@@ -98,7 +91,6 @@ function HeroSection({ onNavigate }: Props) {
               <span className="text-xs font-semibold text-white/40 tracking-[0.05em] ml-1">GRAIN ANALYSIS</span>
             </div>
 
-            {/* Grain preview */}
             <div className="relative h-40 overflow-hidden flex items-center justify-center"
               style={{ background: 'linear-gradient(135deg,#1a2744 0%,#0d1929 100%)' }}>
               <div className="absolute inset-0 opacity-40"
@@ -107,7 +99,6 @@ function HeroSection({ onNavigate }: Props) {
               <div className="absolute left-0 right-0 h-[2px] animate-scan-sweep z-10"
                 style={{ background: 'linear-gradient(90deg,transparent,#0EA5E9,transparent)', boxShadow: '0 0 20px rgba(14,165,233,0.6)' }}
               />
-              {/* Scan corners */}
               <div className="absolute inset-4 pointer-events-none">
                 {[['top-0 left-0 border-t-2 border-l-2 rounded-tl-[3px]'],['top-0 right-0 border-t-2 border-r-2 rounded-tr-[3px]'],['bottom-0 left-0 border-b-2 border-l-2 rounded-bl-[3px]'],['bottom-0 right-0 border-b-2 border-r-2 rounded-br-[3px]']].map(([cls], i) => (
                   <div key={i} className={`absolute w-5 h-5 border-sky-500 ${cls}`} />
@@ -118,7 +109,6 @@ function HeroSection({ onNavigate }: Props) {
               </div>
             </div>
 
-            {/* Body */}
             <div className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -147,21 +137,19 @@ function HeroSection({ onNavigate }: Props) {
               </div>
             </div>
 
-            {/* Footer */}
             <div className="px-5 py-[14px] bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
               <span className="text-xs text-slate-400 font-medium">
                 AI confidence: <span className="text-emerald-500 font-bold">97.3%</span>
               </span>
               <button
                 className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600"
-                onClick={() => onNavigate('scan-results')}
+                onClick={() => navigate('/farmer/results')}
               >
                 View Results
               </button>
             </div>
           </div>
 
-          {/* Floating cards */}
           <div className="absolute -bottom-2 -left-10 bg-white border border-slate-900/[0.06] rounded-[14px] shadow-xl px-4 py-3 flex items-center gap-[10px] text-[13px] font-medium text-slate-900 whitespace-nowrap animate-float-a">
             <div className="w-8 h-8 rounded-full bg-emerald-50 border border-[#A7F3D0] flex items-center justify-center text-base">✓</div>
             <div>
@@ -241,7 +229,6 @@ function HowItWorks() {
           </h2>
         </div>
         <div className="relative grid grid-cols-3 gap-12 mt-[60px]">
-          {/* Connector line */}
           <div className="absolute top-6 left-[calc(16.66%+12px)] right-[calc(16.66%+12px)] h-px"
             style={{ background: 'linear-gradient(90deg,#E2E8F0,#38BDF8,#E2E8F0)' }}
           />
@@ -286,9 +273,9 @@ function StatsSection() {
 
 function TestimonialsSection() {
   const testimonials = [
-    { text: 'AgriTrust changed everything. Before, buyers would claim my maize was low quality and pay almost nothing. Now the AI grades it and I can\'t be cheated.', name: 'Aminu Yusuf', role: 'Maize Farmer, Kaduna', initials: 'AY', color: '#0EA5E9' },
-    { text: 'As a bulk buyer, I used to spend weeks visiting farms. Now I get verified quality reports and can buy with confidence from anywhere. The escrow gives me peace of mind.', name: 'Chioma Okafor', role: 'Grain Buyer, Lagos', initials: 'CO', color: '#10B981' },
-    { text: 'We process 200+ transactions a month through AgriTrust. The aggregator tools are exceptional — batch orders, consolidated shipping, real-time tracking.', name: 'Ibrahim Musa', role: 'Aggregator, Kano', initials: 'IM', color: '#D97706' },
+    { text: "AgriTrust changed everything. Before, buyers would claim my maize was low quality and pay almost nothing. Now the AI grades it and I can't be cheated.", name: 'Aminu Yusuf', role: 'Maize Farmer, Kaduna', initials: 'AY', color: '#0EA5E9' },
+    { text: "As a bulk buyer, I used to spend weeks visiting farms. Now I get verified quality reports and can buy with confidence from anywhere. The escrow gives me peace of mind.", name: 'Chioma Okafor', role: 'Grain Buyer, Lagos', initials: 'CO', color: '#10B981' },
+    { text: "We process 200+ transactions a month through AgriTrust. The aggregator tools are exceptional — batch orders, consolidated shipping, real-time tracking.", name: 'Ibrahim Musa', role: 'Aggregator, Kano', initials: 'IM', color: '#D97706' },
   ]
 
   return (
@@ -324,7 +311,9 @@ function TestimonialsSection() {
   )
 }
 
-function CtaSection({ onNavigate }: Props) {
+function CtaSection() {
+  const navigate = useNavigate()
+
   return (
     <section className="py-[100px] bg-slate-900 text-center relative overflow-hidden">
       <div className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] pointer-events-none"
@@ -340,13 +329,13 @@ function CtaSection({ onNavigate }: Props) {
         <div className="flex items-center justify-center gap-3 flex-wrap">
           <button
             className="inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-white text-slate-900 cursor-pointer transition-all duration-[220ms] shadow-sm hover:bg-slate-50 hover:-translate-y-px hover:shadow-lg"
-            onClick={() => onNavigate('farmer-dashboard')}
+            onClick={() => navigate('/onboarding')}
           >
             Start as Farmer
           </button>
           <button
             className="inline-flex items-center justify-center gap-2 py-[14px] px-7 text-[15px] font-semibold rounded-[14px] bg-white/10 text-white/85 border border-white/15 cursor-pointer transition-all duration-[220ms] hover:bg-white/15 hover:text-white"
-            onClick={() => onNavigate('buyer-dashboard')}
+            onClick={() => navigate('/buyer')}
           >
             I'm a Buyer
           </button>
@@ -405,7 +394,6 @@ function Footer() {
   )
 }
 
-// ── Icons ────────────────────────────────────────────────────────────────────
 function CheckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

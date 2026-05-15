@@ -1,8 +1,4 @@
-type Screen = 'landing' | 'farmer-dashboard' | 'grain-scan' | 'scan-results' | 'buyer-dashboard' | 'payment'
-
-interface Props {
-  onNavigate: (s: Screen) => void
-}
+import { useNavigate } from 'react-router-dom'
 
 const offers = [
   { id: 1, emoji: '🌽', name: 'Yellow Maize',    farmer: 'Aminu Yusuf · Kano',       grade: 'A', price: '₦87,500',  volume: '500 kg',   status: 'Verified',   statusCls: 'bg-emerald-50 text-emerald-700', age: '2h ago' },
@@ -17,17 +13,21 @@ const escrowItems = [
   { id: 'ESC-4735', grain: 'Soybean · 800 kg',       amount: '₦112,000', condition: 'Quality verification',  pct: 40 },
 ]
 
-export default function BuyerDashboard({ onNavigate }: Props) {
+export default function BuyerDashboard() {
+  const navigate = useNavigate()
+
   return (
     <div>
-      {/* Header */}
       <div className="h-16 bg-white border-b border-slate-900/[0.06] flex items-center px-8 gap-4 sticky top-0 z-50">
         <div className="flex items-center gap-3 flex-1">
           <div className="text-[17px] font-semibold tracking-[-0.01em] text-slate-900">Buyer Dashboard</div>
         </div>
         <div className="flex items-center gap-3">
-          <button className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50">
-            <FilterIcon /> Filter
+          <button
+            className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50"
+            onClick={() => navigate('/verify')}
+          >
+            Verify Delivery
           </button>
           <button className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600 hover:-translate-y-px">
             <PlusIcon /> New Order
@@ -36,7 +36,6 @@ export default function BuyerDashboard({ onNavigate }: Props) {
       </div>
 
       <div className="p-8 max-w-[1200px]">
-        {/* Stats */}
         <div className="grid grid-cols-4 gap-4 mb-6">
           {[
             { label: 'Pending Offers',    value: '3',     sub: '2 require action',  dot: '#D97706' },
@@ -56,9 +55,7 @@ export default function BuyerDashboard({ onNavigate }: Props) {
         </div>
 
         <div className="grid gap-6 items-start" style={{ gridTemplateColumns: '1fr 340px' }}>
-          {/* Main */}
           <div className="flex flex-col gap-6">
-            {/* Offers table */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden">
               <div className="px-5 pt-5">
                 <div className="flex items-center justify-between mb-5">
@@ -82,7 +79,7 @@ export default function BuyerDashboard({ onNavigate }: Props) {
                   <div
                     key={o.id}
                     className="flex items-center gap-4 p-4 rounded-[10px] cursor-pointer transition-all duration-[220ms] hover:bg-slate-50"
-                    onClick={() => onNavigate('scan-results')}
+                    onClick={() => navigate('/farmer/results')}
                   >
                     <div className="w-11 h-11 rounded-[10px] bg-sand flex items-center justify-center text-xl shrink-0">{o.emoji}</div>
                     <div className="flex-1 min-w-0">
@@ -103,13 +100,13 @@ export default function BuyerDashboard({ onNavigate }: Props) {
                       <div className="flex gap-[6px]">
                         <button
                           className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-xs font-semibold rounded-[6px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50"
-                          onClick={e => { e.stopPropagation(); onNavigate('scan-results') }}
+                          onClick={e => { e.stopPropagation(); navigate('/farmer/results') }}
                         >
                           View
                         </button>
                         <button
                           className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-xs font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] hover:bg-sky-600"
-                          onClick={e => { e.stopPropagation(); onNavigate('payment') }}
+                          onClick={e => { e.stopPropagation(); navigate('/buyer/payment') }}
                         >
                           Buy
                         </button>
@@ -120,7 +117,6 @@ export default function BuyerDashboard({ onNavigate }: Props) {
               </div>
             </div>
 
-            {/* Delivery map */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden">
               <div className="h-40 relative overflow-hidden" style={{ background: 'linear-gradient(135deg,#e8f4f8 0%,#d4e8f0 100%)' }}>
                 <div className="absolute inset-0"
@@ -168,16 +164,14 @@ export default function BuyerDashboard({ onNavigate }: Props) {
             </div>
           </div>
 
-          {/* Right column */}
           <div className="flex flex-col gap-5">
-            {/* Escrow summary */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
               <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-4">Escrow Accounts</div>
               {escrowItems.map(e => (
                 <div
                   key={e.id}
                   className="py-[14px] border-b border-slate-50 last:border-b-0 cursor-pointer"
-                  onClick={() => onNavigate('payment')}
+                  onClick={() => navigate('/buyer/payment')}
                 >
                   <div className="flex justify-between mb-1">
                     <div className="text-[11px] font-bold text-slate-400 tracking-[0.04em]">{e.id}</div>
@@ -195,13 +189,12 @@ export default function BuyerDashboard({ onNavigate }: Props) {
               ))}
               <button
                 className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] bg-transparent text-slate-900 border-[1.5px] border-slate-200 cursor-pointer transition-all duration-[220ms] hover:bg-slate-50 w-full mt-[14px]"
-                onClick={() => onNavigate('payment')}
+                onClick={() => navigate('/buyer/payment')}
               >
                 Manage Escrow →
               </button>
             </div>
 
-            {/* Quick search */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
               <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-3">Find Grain</div>
               <input
@@ -221,7 +214,6 @@ export default function BuyerDashboard({ onNavigate }: Props) {
               </div>
             </div>
 
-            {/* Quality mix */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
               <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-[14px]">Purchased Quality Mix</div>
               {[
@@ -241,6 +233,13 @@ export default function BuyerDashboard({ onNavigate }: Props) {
                 </div>
               ))}
             </div>
+
+            <button
+              className="w-full py-3 rounded-[14px] bg-slate-900 text-white text-[14px] font-semibold border-0 cursor-pointer hover:bg-slate-800 transition-colors"
+              onClick={() => navigate('/verify')}
+            >
+              Verify a Delivery →
+            </button>
           </div>
         </div>
       </div>
@@ -248,9 +247,6 @@ export default function BuyerDashboard({ onNavigate }: Props) {
   )
 }
 
-function FilterIcon() {
-  return <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-}
 function PlusIcon() {
   return <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
 }

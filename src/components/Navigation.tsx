@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-type Screen = 'landing' | 'farmer-dashboard' | 'grain-scan' | 'scan-results' | 'buyer-dashboard' | 'payment'
-
-interface Props {
-  current: Screen
-  onNavigate: (s: Screen) => void
-}
-
-export default function Navigation({ current, onNavigate }: Props) {
+export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 12)
@@ -16,7 +12,7 @@ export default function Navigation({ current, onNavigate }: Props) {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  if (current !== 'landing') return null
+  if (location.pathname !== '/') return null
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[200] h-16 flex items-center px-8 transition-all duration-[220ms] ${
@@ -41,12 +37,15 @@ export default function Navigation({ current, onNavigate }: Props) {
       </div>
 
       <div className="flex items-center gap-[10px]">
-        <button className="inline-flex items-center justify-center gap-2 px-[22px] py-[11px] text-sm font-semibold rounded-[10px] border-0 bg-transparent text-slate-500 cursor-pointer transition-all duration-[220ms] hover:bg-slate-100 hover:text-slate-900">
+        <button
+          className="inline-flex items-center justify-center gap-2 px-[22px] py-[11px] text-sm font-semibold rounded-[10px] border-0 bg-transparent text-slate-500 cursor-pointer transition-all duration-[220ms] hover:bg-slate-100 hover:text-slate-900"
+          onClick={() => navigate('/farmer')}
+        >
           Sign in
         </button>
         <button
           className="inline-flex items-center justify-center gap-2 px-[22px] py-[11px] text-sm font-semibold rounded-[10px] border-0 bg-slate-900 text-white cursor-pointer transition-all duration-[220ms] shadow-sm hover:bg-slate-800 hover:-translate-y-px hover:shadow-md active:translate-y-0"
-          onClick={() => onNavigate('farmer-dashboard')}
+          onClick={() => navigate('/onboarding')}
         >
           Get started
         </button>

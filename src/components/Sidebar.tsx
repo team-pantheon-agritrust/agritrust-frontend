@@ -1,39 +1,50 @@
-type Screen = 'landing' | 'farmer-dashboard' | 'grain-scan' | 'scan-results' | 'buyer-dashboard' | 'payment'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useAppContext } from '../context/AppContext'
+
+interface Props {
+  mode: 'farmer' | 'buyer'
+}
 
 interface NavItem {
-  id: Screen
+  path: string
   label: string
   icon: React.ReactNode
 }
 
-interface Props {
-  current: Screen
-  onNavigate: (s: Screen) => void
-  mode: 'farmer' | 'buyer'
-}
+export default function Sidebar({ mode }: Props) {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { farmerProfile } = useAppContext()
 
-export default function Sidebar({ current, onNavigate, mode }: Props) {
   const farmerItems: NavItem[] = [
-    { id: 'farmer-dashboard', label: 'Dashboard', icon: <DashIcon /> },
-    { id: 'grain-scan',       label: 'Scan Grain', icon: <ScanIcon /> },
-    { id: 'scan-results',     label: 'Results',    icon: <ResultsIcon /> },
-    { id: 'payment',          label: 'Payments',   icon: <PayIcon /> },
+    { path: '/farmer',         label: 'Dashboard',  icon: <DashIcon /> },
+    { path: '/farmer/scan',    label: 'Scan Grain', icon: <ScanIcon /> },
+    { path: '/farmer/results', label: 'Results',    icon: <ResultsIcon /> },
+    { path: '/buyer/payment',  label: 'Payments',   icon: <PayIcon /> },
   ]
 
   const buyerItems: NavItem[] = [
-    { id: 'buyer-dashboard', label: 'Dashboard', icon: <DashIcon /> },
-    { id: 'payment',         label: 'Escrow',    icon: <PayIcon /> },
+    { path: '/buyer',          label: 'Dashboard',  icon: <DashIcon /> },
+    { path: '/buyer/payment',  label: 'Escrow',     icon: <PayIcon /> },
   ]
 
   const items = mode === 'farmer' ? farmerItems : buyerItems
+  const current = location.pathname
+
+  const displayName = farmerProfile
+    ? `${farmerProfile.firstName} ${farmerProfile.lastName}`
+    : mode === 'farmer' ? 'Farmer' : 'Buyer'
+
+  const initials = farmerProfile
+    ? `${farmerProfile.firstName[0] ?? ''}${farmerProfile.lastName[0] ?? ''}`.toUpperCase()
+    : mode === 'farmer' ? 'F' : 'B'
 
   return (
     <aside className="w-[248px] shrink-0 bg-slate-900 flex flex-col fixed top-0 left-0 h-screen z-[100]">
-      {/* Logo */}
       <div className="px-5 pt-6 pb-5 border-b border-white/[0.06]">
         <div
           className="flex items-center gap-[10px] cursor-pointer"
-          onClick={() => onNavigate('landing')}
+          onClick={() => navigate('/')}
         >
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <rect width="28" height="28" rx="7" fill="rgba(255,255,255,0.1)" />
@@ -50,22 +61,21 @@ export default function Sidebar({ current, onNavigate, mode }: Props) {
         </div>
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 p-3 flex flex-col gap-0.5">
         <div className="text-[10px] font-bold tracking-[0.08em] text-white/25 uppercase px-3 mb-1 mt-1">
           Menu
         </div>
         {items.map(item => (
           <button
-            key={item.id}
-            onClick={() => onNavigate(item.id)}
+            key={item.path}
+            onClick={() => navigate(item.path)}
             className={`flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left transition-all duration-[220ms] ${
-              current === item.id
+              current === item.path
                 ? 'bg-sky-500/15 text-sky-400'
                 : 'bg-transparent text-white/55 hover:bg-white/[0.07] hover:text-white/85'
             }`}
           >
-            <span className={current === item.id ? 'opacity-100 flex' : 'opacity-50 flex'}>
+            <span className={current === item.path ? 'opacity-100 flex' : 'opacity-50 flex'}>
               {item.icon}
             </span>
             {item.label}
@@ -78,14 +88,14 @@ export default function Sidebar({ current, onNavigate, mode }: Props) {
           </div>
           <button
             className="flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left bg-transparent text-white/55 transition-all duration-[220ms] hover:bg-white/[0.07] hover:text-white/85"
-            onClick={() => onNavigate(mode === 'farmer' ? 'buyer-dashboard' : 'farmer-dashboard')}
+            onClick={() => navigate(mode === 'farmer' ? '/buyer' : '/farmer')}
           >
             <span className="opacity-50 flex"><SwitchIcon /></span>
             {mode === 'farmer' ? 'Buyer View' : 'Farmer View'}
           </button>
           <button
             className="flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left bg-transparent text-white/55 transition-all duration-[220ms] hover:bg-white/[0.07] hover:text-white/85"
-            onClick={() => onNavigate('landing')}
+            onClick={() => navigate('/')}
           >
             <span className="opacity-50 flex"><HomeIcon /></span>
             Landing Page
@@ -93,18 +103,18 @@ export default function Sidebar({ current, onNavigate, mode }: Props) {
         </div>
       </nav>
 
-      {/* Footer user */}
       <div className="px-3 pb-5 pt-4 border-t border-white/[0.06]">
-        <div className="flex items-center gap-[10px] p-[10px] px-3">
+        <div
+          className="flex items-center gap-[10px] p-[10px] px-3 cursor-pointer rounded-[10px] hover:bg-white/[0.05] transition-colors"
+          onClick={() => mode === 'farmer' && navigate('/farmer/profile')}
+        >
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center text-xs font-bold text-white shrink-0">
-            {mode === 'farmer' ? 'AY' : 'CO'}
+            {initials}
           </div>
           <div>
-            <div className="text-[13px] font-semibold text-white/85">
-              {mode === 'farmer' ? 'Aminu Yusuf' : 'Chioma Okafor'}
-            </div>
+            <div className="text-[13px] font-semibold text-white/85">{displayName}</div>
             <div className="text-[11px] text-white/35">
-              {mode === 'farmer' ? 'Verified Farmer' : 'Premium Buyer'}
+              {mode === 'farmer' ? 'Farmer' : 'Buyer'}
             </div>
           </div>
         </div>
