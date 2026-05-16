@@ -23,7 +23,7 @@ function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(14,165,233,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,0.03) 1px,transparent 1px)",
+            "linear-gradient(rgba(224,24,91,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(224,24,91,0.03) 1px,transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
@@ -31,7 +31,7 @@ function HeroSection() {
         className="absolute -top-[200px] -right-[100px] w-[700px] h-[700px] pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at center,rgba(14,165,233,0.08) 0%,transparent 70%)",
+            "radial-gradient(circle at center,rgba(224,24,91,0.08) 0%,transparent 70%)",
         }}
       />
 
@@ -41,7 +41,7 @@ function HeroSection() {
             Transparent Grain Trading,{" "}
             <span
               style={{
-                background: "linear-gradient(135deg,#0EA5E9 0%,#0284C7 100%)",
+                background: "linear-gradient(135deg,#FF4C1D 0%,#9B0063 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -145,8 +145,8 @@ function HeroSection() {
                 className="absolute left-0 right-0 h-[2px] animate-scan-sweep z-10"
                 style={{
                   background:
-                    "linear-gradient(90deg,transparent,#0EA5E9,transparent)",
-                  boxShadow: "0 0 20px rgba(14,165,233,0.6)",
+                    "linear-gradient(90deg,transparent,#E0185B,transparent)",
+                  boxShadow: "0 0 20px rgba(224,24,91,0.6)",
                 }}
               />
               <div className="absolute inset-4 pointer-events-none">
@@ -158,11 +158,11 @@ function HeroSection() {
                 ].map(([cls], i) => (
                   <div
                     key={i}
-                    className={`absolute w-5 h-5 border-sky-500 ${cls}`}
+                    className={`absolute w-5 h-5 border-[#E0185B] ${cls}`}
                   />
                 ))}
               </div>
-              <div className="absolute top-3 right-3 bg-sky-500/90 backdrop-blur text-white text-[11px] font-bold tracking-[0.05em] px-[10px] py-[5px] rounded-[6px]">
+              <div className="absolute top-3 right-3 bg-[#E0185B]/90 backdrop-blur text-white text-[11px] font-bold tracking-[0.05em] px-[10px] py-[5px] rounded-[6px]">
                 AI SCANNING
               </div>
             </div>
@@ -210,7 +210,7 @@ function HeroSection() {
                         style={{
                           width: `${m.pct}%`,
                           background:
-                            "linear-gradient(90deg,#0EA5E9 0%,#0284C7 100%)",
+                            "linear-gradient(90deg,#FF4C1D 0%,#9B0063 100%)",
                         }}
                       />
                     </div>
@@ -228,7 +228,7 @@ function HeroSection() {
                 <span className="text-emerald-500 font-bold">97.3%</span>
               </span>
               <button
-                className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600"
+                className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-[#E0185B] text-white cursor-pointer transition-all duration-[220ms]  hover:bg-[#c8144f]"
                 onClick={() => navigate("/farmer/results")}
               >
                 View Results
@@ -303,7 +303,7 @@ function FeaturesSection() {
     <section className="py-[80px] sm:py-[100px] bg-white">
       <div className="w-full max-w-6xl mx-auto px-6">
         <div className="text-center max-w-[600px] mx-auto">
-          <div className="text-xs font-bold tracking-[0.1em] uppercase text-sky-500 mb-3">
+          <div className="text-xs font-bold tracking-[0.1em] uppercase text-[#E0185B] mb-3">
             Platform Features
           </div>
           <h2 className="text-[clamp(28px,4vw,42px)] font-extrabold tracking-[-0.035em] text-slate-900 leading-[1.15] mb-4">
@@ -323,7 +323,7 @@ function FeaturesSection() {
               key={f.title}
               className="p-7 bg-cream border border-sand rounded-[20px] transition-all duration-[220ms] hover:bg-white hover:border-slate-200 hover:-translate-y-0.5 hover:shadow-lg cursor-default"
             >
-              <div className="w-11 h-11 rounded-[10px] bg-sky-50 border border-sky-100 flex items-center justify-center mb-4 text-sky-500">
+              <div className="w-11 h-11 rounded-[10px] bg-[#fdf0f5] border border-[#fce8f0] flex items-center justify-center mb-4 text-[#E0185B]">
                 {f.icon}
               </div>
               <div className="text-base font-bold text-slate-900 tracking-[-0.02em] mb-2">
@@ -363,7 +363,7 @@ function HowItWorks() {
     <section className="py-[80px] sm:py-[100px] bg-cream">
       <div className="w-full max-w-6xl mx-auto px-6">
         <div className="text-center max-w-[560px] mx-auto">
-          <div className="text-xs font-bold tracking-[0.1em] uppercase text-sky-500 mb-3">
+          <div className="text-xs font-bold tracking-[0.1em] uppercase text-[#E0185B] mb-3">
             How It Works
           </div>
           <h2 className="text-[clamp(28px,4vw,42px)] font-extrabold tracking-[-0.035em] text-slate-900 leading-[1.15] mb-4">
@@ -374,7 +374,7 @@ function HowItWorks() {
           <div
             className="hidden sm:block absolute top-6 left-[calc(16.66%+12px)] right-[calc(16.66%+12px)] h-px"
             style={{
-              background: "linear-gradient(90deg,#E2E8F0,#38BDF8,#E2E8F0)",
+              background: "linear-gradient(90deg,#E2E8F0,#E0185B,#E2E8F0)",
             }}
           />
           {steps.map((s, i) => (
@@ -429,7 +429,7 @@ function TestimonialsSection() {
       name: "Aminu Yusuf",
       role: "Maize Farmer, Kaduna",
       initials: "AY",
-      color: "#0EA5E9",
+      color: "#E0185B",
     },
     {
       text: "As a bulk buyer, I used to spend weeks visiting farms. Now I get verified quality reports and can buy with confidence from anywhere. The escrow gives me peace of mind.",
@@ -451,7 +451,7 @@ function TestimonialsSection() {
     <section className="py-[80px] sm:py-[100px] bg-white">
       <div className="w-full max-w-6xl mx-auto px-6">
         <div className="text-center max-w-[560px] mx-auto">
-          <div className="text-xs font-bold tracking-[0.1em] uppercase text-sky-500 mb-3">
+          <div className="text-xs font-bold tracking-[0.1em] uppercase text-[#E0185B] mb-3">
             Testimonials
           </div>
           <h2 className="text-[clamp(28px,4vw,42px)] font-extrabold tracking-[-0.035em] text-slate-900 leading-[1.15] mb-4">
@@ -503,7 +503,7 @@ function CtaSection() {
         className="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at center,rgba(14,165,233,0.12) 0%,transparent 70%)",
+            "radial-gradient(circle at center,rgba(224,24,91,0.12) 0%,transparent 70%)",
         }}
       />
       <div className="w-full max-w-6xl mx-auto px-6 relative">
@@ -546,13 +546,13 @@ function Footer() {
                 <rect width="28" height="28" rx="7" fill="#0F172A" />
                 <path
                   d="M8 18C8 18 10 12 14 10C18 8 20 14 20 14"
-                  stroke="#0EA5E9"
+                  stroke="#E0185B"
                   strokeWidth="2.2"
                   strokeLinecap="round"
                   fill="none"
                 />
                 <circle cx="14" cy="17" r="3" fill="#EDE4D5" />
-                <circle cx="14" cy="17" r="1.5" fill="#0EA5E9" />
+                <circle cx="14" cy="17" r="1.5" fill="#E0185B" />
               </svg>
               AgriTrust
             </div>
@@ -613,7 +613,7 @@ function Footer() {
             <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700">
               SOC 2 Type II
             </span>
-            <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-sky-100 text-sky-600">
+            <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-[#fdf0f5] text-[#E0185B]">
               PCI DSS
             </span>
             <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-slate-100 text-slate-600">

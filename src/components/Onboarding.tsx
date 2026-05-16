@@ -47,9 +47,9 @@ export default function Onboarding() {
         <div className="text-center mb-8">
           <div className="w-12 h-12 rounded-[14px] bg-slate-900 flex items-center justify-center mx-auto mb-4">
             <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
-              <path d="M8 18C8 18 10 12 14 10C18 8 20 14 20 14" stroke="#0EA5E9" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+              <path d="M8 18C8 18 10 12 14 10C18 8 20 14 20 14" stroke="#E0185B" strokeWidth="2.2" strokeLinecap="round" fill="none" />
               <circle cx="14" cy="17" r="3" fill="#EDE4D5" />
-              <circle cx="14" cy="17" r="1.5" fill="#0EA5E9" />
+              <circle cx="14" cy="17" r="1.5" fill="#E0185B" />
             </svg>
           </div>
           <h1 className="text-2xl font-extrabold tracking-[-0.03em] text-slate-900 mb-2">Create your farmer profile</h1>
@@ -117,7 +117,7 @@ export default function Onboarding() {
 
           <p className="text-center text-xs text-slate-400">
             Already have a profile?{' '}
-            <button type="button" className="text-sky-500 font-semibold border-0 bg-transparent cursor-pointer" onClick={() => navigate('/farmer')}>
+            <button type="button" className="text-[#E0185B] font-semibold border-0 bg-transparent cursor-pointer" onClick={() => navigate('/farmer')}>
               Go to dashboard
             </button>
           </p>
@@ -143,7 +143,7 @@ function Field({ label, name, value, onChange, placeholder, required, type = 'te
     <div>
       <label className="block text-[13px] font-semibold text-slate-700 mb-[6px]">
         {label}
-        {required && <span className="text-sky-500 ml-[3px]">*</span>}
+        {required && <span className="text-[#E0185B] ml-[3px]">*</span>}
       </label>
       <input
         type={type}
@@ -151,7 +151,7 @@ function Field({ label, name, value, onChange, placeholder, required, type = 'te
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full px-[14px] py-[10px] text-sm text-slate-900 bg-white border-[1.5px] border-slate-200 rounded-[10px] outline-none transition focus:border-sky-500 focus:shadow-[0_0_0_3px_rgba(14,165,233,0.12)] placeholder:text-slate-400"
+        className="w-full px-[14px] py-[10px] text-sm text-slate-900 bg-white border-[1.5px] border-slate-200 rounded-[10px] outline-none transition focus:border-[#E0185B] focus:shadow-[0_0_0_3px_rgba(224,24,91,0.12)] placeholder:text-slate-400"
       />
       {hint && <p className="text-[11px] text-slate-400 mt-[5px]">{hint}</p>}
     </div>

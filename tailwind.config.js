@@ -8,12 +8,15 @@ export default {
         'cream-dark': '#F5F1EA',
         sand: '#EDE4D5',
         'sand-dark': '#DDD0BC',
+        brand: '#E0185B',
+        'brand-dark': '#c8144f',
+        'brand-light': '#fdf0f5',
       },
       fontFamily: {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       boxShadow: {
-        sky: '0 4px 14px rgba(14, 165, 233, 0.25)',
+        brand: '0 4px 14px rgba(224, 24, 91, 0.25)',
         xs: '0 1px 2px rgba(15, 23, 42, 0.04)',
       },
       borderColor: {

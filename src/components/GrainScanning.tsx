@@ -19,7 +19,9 @@ export default function GrainScanning() {
   const [cameraError, setCameraError] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const [gps, setGps] = useState<{ lat: number; lng: number } | null>(null);
-  const [locationStatus, setLocationStatus] = useState<"pending" | "granted" | "denied">("pending");
+  const [locationStatus, setLocationStatus] = useState<
+    "pending" | "granted" | "denied"
+  >("pending");
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -33,14 +35,17 @@ export default function GrainScanning() {
   useEffect(() => () => stopCamera(), [stopCamera]);
 
   useEffect(() => {
-    if (!navigator.geolocation) { setLocationStatus("denied"); return; }
+    if (!navigator.geolocation) {
+      setLocationStatus("denied");
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setGps({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         setLocationStatus("granted");
       },
       () => setLocationStatus("denied"),
-      { timeout: 8000 }
+      { timeout: 8000 },
     );
   }, []);
 
@@ -166,9 +171,6 @@ export default function GrainScanning() {
           Scan Grain
         </div>
         <div className="flex-1" />
-        <span className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-xs font-semibold rounded-full bg-sky-100 text-sky-600">
-          AI Analysis
-        </span>
       </div>
 
       <div className="max-w-[680px] mx-auto p-10 px-8">
@@ -183,14 +185,14 @@ export default function GrainScanning() {
               <div
                 className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 border-2 transition-all duration-[220ms] ${
                   s.active
-                    ? "bg-sky-500 border-sky-500 text-white"
+                    ? "bg-[#E0185B] border-[#E0185B] text-white"
                     : "bg-white border-slate-200 text-slate-400"
                 }`}
               >
                 {i + 1}
               </div>
               <div
-                className={`text-xs font-semibold ml-2 ${s.active ? "text-sky-600" : "text-slate-400"}`}
+                className={`text-xs font-semibold ml-2 ${s.active ? "text-[#E0185B]" : "text-slate-400"}`}
               >
                 {s.label}
               </div>
@@ -219,7 +221,7 @@ export default function GrainScanning() {
                     onClick={() => setSelectedGrain(g)}
                     className={`py-[7px] px-4 rounded-full border-[1.5px] text-[13px] font-semibold cursor-pointer transition-all duration-200 ${
                       selectedGrain === g
-                        ? "border-sky-500 bg-sky-50 text-sky-600"
+                        ? "border-[#E0185B] bg-[#fdf0f5] text-[#E0185B]"
                         : "border-slate-200 bg-transparent text-slate-500 hover:border-slate-300"
                     }`}
                   >
@@ -234,7 +236,9 @@ export default function GrainScanning() {
               {locationStatus === "pending" && (
                 <>
                   <div className="w-[6px] h-[6px] rounded-full bg-amber-400 animate-pulse shrink-0" />
-                  <span className="text-xs text-slate-400">Detecting location…</span>
+                  <span className="text-xs text-slate-400">
+                    Detecting location…
+                  </span>
                 </>
               )}
               {locationStatus === "granted" && gps && (
@@ -248,7 +252,9 @@ export default function GrainScanning() {
               {locationStatus === "denied" && (
                 <>
                   <div className="w-[6px] h-[6px] rounded-full bg-slate-300 shrink-0" />
-                  <span className="text-xs text-slate-400">Location unavailable — using default</span>
+                  <span className="text-xs text-slate-400">
+                    Location unavailable — using default
+                  </span>
                 </>
               )}
             </div>
@@ -264,7 +270,7 @@ export default function GrainScanning() {
                 onChange={(e) => setQuantity(e.target.value)}
                 placeholder="e.g. 50"
                 min="1"
-                className="w-full px-[14px] py-[10px] text-sm text-slate-900 bg-white border-[1.5px] border-slate-200 rounded-[10px] outline-none transition focus:border-sky-500 focus:shadow-[0_0_0_3px_rgba(14,165,233,0.12)] placeholder:text-slate-400"
+                className="w-full px-[14px] py-[10px] text-sm text-slate-900 bg-white border-[1.5px] border-slate-200 rounded-[10px] outline-none transition focus:border-[#E0185B] focus:shadow-[0_0_0_3px_rgba(224,24,91,0.12)] placeholder:text-slate-400"
               />
             </div>
 
@@ -273,8 +279,8 @@ export default function GrainScanning() {
               <div className="flex flex-col gap-3">
                 {/* Live camera view */}
                 <div
-                  className="relative rounded-[24px] overflow-hidden bg-slate-900"
-                  style={{ aspectRatio: "16/9" }}
+                  className="relative rounded-[16px] overflow-hidden border border-slate-200 bg-slate-50"
+                  style={{ aspectRatio: "16/9", maxHeight: "200px" }}
                 >
                   <video
                     ref={videoRef}
@@ -285,9 +291,9 @@ export default function GrainScanning() {
                   />
 
                   {state === "idle" && (
-                    <div className="absolute inset-0 flex flex-col items-center p-3 justify-center gap-4 bg-slate-900">
+                    <div className="absolute inset-0 flex flex-col items-center p-3 justify-center gap-4 bg-transparent">
                       <div className="text-center">
-                        <div className="text-white font-semibold text-[15px]">
+                        <div className="text-black font-semibold text-[15px]">
                           Use your camera
                         </div>
                         <div className="text-white/50 text-[13px] mt-1">
@@ -296,7 +302,7 @@ export default function GrainScanning() {
                       </div>
                       <button
                         onClick={startCamera}
-                        className="mt-1 inline-flex items-center gap-2 py-[10px] px-6 text-[14px] font-semibold rounded-[12px] bg-sky-500 text-white border-0 cursor-pointer transition hover:bg-sky-600"
+                        className="mt-1 inline-flex items-center gap-2 py-[10px] px-6 text-[14px] font-semibold rounded-[12px] bg-[#E0185B] text-white border-0 cursor-pointer transition hover:bg-[#c8144f]"
                       >
                         <svg
                           width="16"
@@ -336,7 +342,7 @@ export default function GrainScanning() {
                         ].map((cls, i) => (
                           <div
                             key={i}
-                            className={`absolute w-6 h-6 border-sky-400 ${cls}`}
+                            className={`absolute w-6 h-6 border-[#E0185B] ${cls}`}
                           />
                         ))}
                       </div>
@@ -348,9 +354,9 @@ export default function GrainScanning() {
                       <div className="absolute bottom-5 inset-x-0 flex justify-center">
                         <button
                           onClick={capturePhoto}
-                          className="w-16 h-16 rounded-full bg-white border-4 border-sky-500 shadow-lg cursor-pointer transition hover:scale-105 active:scale-95 flex items-center justify-center"
+                          className="w-16 h-16 rounded-full bg-white border-4 border-[#E0185B] shadow-lg cursor-pointer transition hover:scale-105 active:scale-95 flex items-center justify-center"
                         >
-                          <div className="w-11 h-11 rounded-full bg-sky-500" />
+                          <div className="w-11 h-11 rounded-full bg-[#E0185B]" />
                         </button>
                       </div>
                     </>
@@ -367,8 +373,8 @@ export default function GrainScanning() {
                 <div
                   className={`border-2 border-dashed rounded-[20px] py-8 px-8 text-center cursor-pointer transition-all duration-[220ms] ${
                     dragOver
-                      ? "border-sky-500 bg-sky-50"
-                      : "border-slate-200 bg-slate-50 hover:border-sky-400 hover:bg-sky-50/50"
+                      ? "border-[#E0185B] bg-[#fdf0f5]"
+                      : "border-slate-200 bg-slate-50 hover:border-[#E0185B] hover:bg-[#fdf0f5]/50"
                   }`}
                   onDragOver={(e) => {
                     e.preventDefault();
@@ -390,7 +396,7 @@ export default function GrainScanning() {
                   />
                   <div className="text-slate-400 text-sm">
                     Or{" "}
-                    <span className="text-sky-500 font-semibold">
+                    <span className="text-[#E0185B] font-semibold">
                       upload from gallery
                     </span>{" "}
                     — drag & drop or click to browse
@@ -413,8 +419,8 @@ export default function GrainScanning() {
             {state === "preview" && imagePreview && (
               <div className="flex flex-col gap-3">
                 <div
-                  className="relative rounded-[24px] overflow-hidden bg-slate-100"
-                  style={{ aspectRatio: "16/9" }}
+                  className="relative rounded-[16px] overflow-hidden bg-slate-100"
+                  style={{ aspectRatio: "16/9", maxHeight: "200px" }}
                 >
                   <img
                     src={imagePreview}
@@ -490,7 +496,7 @@ export default function GrainScanning() {
             )}
 
             <button
-              className="inline-flex items-center justify-center gap-2 w-full py-[14px] px-3 md:px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
+              className="inline-flex items-center justify-center gap-2 w-full py-[14px] px-3 md:px-7 text-[15px] font-semibold rounded-[14px] border-0 bg-[#E0185B] text-white cursor-pointer transition-all duration-[220ms]  hover:bg-[#c8144f] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
               disabled={state !== "preview"}
               onClick={runScan}
             >
@@ -543,7 +549,6 @@ async function compressImage(file: File): Promise<string> {
 }
 
 function ScanningState({
-  grain,
   imagePreview,
 }: {
   grain: string;
@@ -575,16 +580,16 @@ function ScanningState({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg,transparent 40%,rgba(14,165,233,0.03) 100%)",
+              "linear-gradient(180deg,transparent 40%,rgba(224,24,91,0.03) 100%)",
           }}
         />
         <div
           className="absolute left-0 right-0 h-[3px] z-10 animate-scan-fast"
           style={{
             background:
-              "linear-gradient(90deg,transparent 0%,#38BDF8 30%,#0EA5E9 50%,#38BDF8 70%,transparent 100%)",
+              "linear-gradient(90deg,transparent 0%,#FF4C1D 30%,#E0185B 50%,#9B0063 70%,transparent 100%)",
             boxShadow:
-              "0 0 30px rgba(14,165,233,0.8),0 0 60px rgba(14,165,233,0.4)",
+              "0 0 30px rgba(224,24,91,0.8),0 0 60px rgba(224,24,91,0.4)",
           }}
         />
         <div className="absolute inset-6 z-[2] pointer-events-none">
@@ -594,17 +599,20 @@ function ScanningState({
             ["bottom-0 left-0 border-b-2 border-l-2 rounded-bl-[3px]"],
             ["bottom-0 right-0 border-b-2 border-r-2 rounded-br-[3px]"],
           ].map(([cls], i) => (
-            <div key={i} className={`absolute w-5 h-5 border-sky-500 ${cls}`} />
+            <div
+              key={i}
+              className={`absolute w-5 h-5 border-[#E0185B] ${cls}`}
+            />
           ))}
         </div>
-        <div className="absolute top-3 right-3 bg-sky-500/90 backdrop-blur text-white text-[11px] font-bold tracking-[0.05em] px-[10px] py-[5px] rounded-[6px]">
+        <div className="absolute top-3 right-3 bg-[#E0185B]/90 backdrop-blur text-white text-[11px] font-bold tracking-[0.05em] px-[10px] py-[5px] rounded-[6px]">
           AI SCANNING...
         </div>
         <div
           className="absolute bottom-0 left-0 right-0 px-5 py-4 flex items-center gap-[10px] backdrop-blur"
           style={{ background: "rgba(15,23,42,0.85)" }}
         >
-          <div className="w-4 h-4 rounded-full border-2 border-white/20 border-t-sky-500 shrink-0 animate-spin-fast" />
+          <div className="w-4 h-4 rounded-full border-2 border-white/20 border-t-[#E0185B] shrink-0 animate-spin-fast" />
           <div className="text-[13px] font-medium text-white/70 flex-1">
             Analysing grain quality…
           </div>
@@ -619,7 +627,7 @@ function ScanningState({
           This usually takes 5–15 seconds
         </div>
         <div className="mt-4 flex justify-center">
-          <div className="w-6 h-6 border-2 border-slate-200 border-t-sky-500 rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-slate-200 border-t-[#E0185B] rounded-full animate-spin" />
         </div>
       </div>
     </div>

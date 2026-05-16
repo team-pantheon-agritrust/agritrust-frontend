@@ -24,7 +24,7 @@ export default function GradingResults() {
           Please complete a grain scan first.
         </p>
         <button
-          className="inline-flex items-center justify-center gap-2 py-[10px] px-5 text-[14px] font-semibold rounded-[10px] border-0 bg-sky-500 text-white cursor-pointer hover:bg-sky-600 transition-colors"
+          className="inline-flex items-center justify-center gap-2 py-[10px] px-5 text-[14px] font-semibold rounded-[10px] border-0 bg-[#E0185B] text-white cursor-pointer hover:bg-[#c8144f] transition-colors"
           onClick={() => navigate("/farmer/scan")}
         >
           Scan Grain
@@ -37,7 +37,7 @@ export default function GradingResults() {
 
   const gradeColors: Record<string, string> = {
     A: "#10B981",
-    B: "#0EA5E9",
+    B: "#E0185B",
     C: "#D97706",
     D: "#EF4444",
   };
@@ -252,9 +252,9 @@ export default function GradingResults() {
             </div>
           </div>
 
-          <div className="p-3 px-4 bg-sky-50 border border-sky-100 rounded-[10px] text-[13px] text-sky-800">
+          <div className="p-3 px-4 bg-[#fdf0f5] border border-[#fce8f0] rounded-[10px] text-[13px] text-[#7a0c30]">
             Transaction Ref:{" "}
-            <span className="font-mono font-bold text-sky-900">
+            <span className="font-mono font-bold text-[#120207]">
               {transactionRef}
             </span>
           </div>

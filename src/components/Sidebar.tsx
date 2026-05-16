@@ -61,37 +61,32 @@ export default function Sidebar({ mode, isOpen = false, onClose }: Props) {
         onClick={onClose}
       />
       <aside
-        className={`w-[248px] shrink-0 bg-slate-900 flex flex-col fixed top-0 left-0 h-screen z-[100] transform transition-transform duration-[220ms] md:translate-x-0 ${
+        className={`w-[248px] shrink-0 bg-white border-r border-slate-900/[0.06] flex flex-col fixed top-0 left-0 h-screen z-[100] transform transition-transform duration-[220ms] md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
-        <div className="px-5 pt-6 pb-5 border-b border-white/[0.06]">
+        <div className="px-5 pt-6 pb-5 border-b border-slate-900/[0.06]">
           <div
             className="flex items-center gap-[10px] cursor-pointer"
             onClick={() => handleNavigate("/")}
           >
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect
-                width="28"
-                height="28"
-                rx="7"
-                fill="rgba(255,255,255,0.1)"
-              />
+              <rect width="28" height="28" rx="7" fill="#120207" />
               <path
                 d="M8 18C8 18 10 12 14 10C18 8 20 14 20 14"
-                stroke="#0EA5E9"
+                stroke="#E0185B"
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 fill="none"
               />
               <circle cx="14" cy="17" r="3" fill="#EDE4D5" />
-              <circle cx="14" cy="17" r="1.5" fill="#0EA5E9" />
+              <circle cx="14" cy="17" r="1.5" fill="#E0185B" />
             </svg>
             <div>
-              <div className="text-base font-extrabold text-white tracking-[-0.04em]">
+              <div className="text-base font-extrabold text-slate-900 tracking-[-0.04em]">
                 AgriTrust
               </div>
-              <div className="text-[10px] text-white/35 font-medium mt-[1px]">
+              <div className="text-[10px] text-slate-400 font-medium mt-[1px]">
                 {mode === "farmer" ? "Farmer Portal" : "Buyer Portal"}
               </div>
             </div>
@@ -99,7 +94,7 @@ export default function Sidebar({ mode, isOpen = false, onClose }: Props) {
         </div>
 
         <nav className="flex-1 p-3 flex flex-col gap-0.5">
-          <div className="text-[10px] font-bold tracking-[0.08em] text-white/25 uppercase px-3 mb-1 mt-1">
+          <div className="text-[10px] font-bold tracking-[0.08em] text-slate-400 uppercase px-3 mb-1 mt-1">
             Menu
           </div>
           {items.map((item) => (
@@ -108,32 +103,28 @@ export default function Sidebar({ mode, isOpen = false, onClose }: Props) {
               onClick={() => handleNavigate(item.path)}
               className={`flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left transition-all duration-[220ms] ${
                 current === item.path
-                  ? "bg-sky-500/15 text-sky-400"
-                  : "bg-transparent text-white/55 hover:bg-white/[0.07] hover:text-white/85"
+                  ? "bg-[#E0185B] text-white"
+                  : "bg-transparent text-[#E0185B] hover:bg-[#fdf0f5]"
               }`}
             >
-              <span
-                className={
-                  current === item.path ? "opacity-100 flex" : "opacity-50 flex"
-                }
-              >
+              <span className="flex">
                 {item.icon}
               </span>
               {item.label}
             </button>
           ))}
 
-          <div className="border-t border-white/[0.06] mt-3 pt-3">
-            <div className="text-[10px] font-bold tracking-[0.08em] text-white/25 uppercase px-3 mb-1">
+          <div className="border-t border-slate-900/[0.06] mt-3 pt-3">
+            <div className="text-[10px] font-bold tracking-[0.08em] text-slate-400 uppercase px-3 mb-1">
               Switch
             </div>
             <button
-              className="flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left bg-transparent text-white/55 transition-all duration-[220ms] hover:bg-white/[0.07] hover:text-white/85"
+              className="flex items-center gap-[10px] px-3 py-[10px] rounded-[10px] text-sm font-medium cursor-pointer border-0 w-full text-left bg-transparent text-[#E0185B] transition-all duration-[220ms] hover:bg-[#fdf0f5]"
               onClick={() =>
                 handleNavigate(mode === "farmer" ? "/buyer" : "/farmer")
               }
             >
-              <span className="opacity-50 flex">
+              <span className="flex">
                 <SwitchIcon />
               </span>
               {mode === "farmer" ? "Buyer View" : "Farmer View"}
@@ -141,21 +132,21 @@ export default function Sidebar({ mode, isOpen = false, onClose }: Props) {
           </div>
         </nav>
 
-        <div className="px-3 pb-5 pt-4 border-t border-white/[0.06]">
+        <div className="px-3 pb-5 pt-4 border-t border-slate-900/[0.06]">
           <div
-            className="flex items-center gap-[10px] p-[10px] px-3 cursor-pointer rounded-[10px] hover:bg-white/[0.05] transition-colors"
+            className="flex items-center gap-[10px] p-[10px] px-3 cursor-pointer rounded-[10px] hover:bg-[#fdf0f5] transition-colors"
             onClick={() =>
               mode === "farmer" && handleNavigate("/farmer/profile")
             }
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center text-xs font-bold text-white shrink-0">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF4C1D] to-[#9B0063] flex items-center justify-center text-xs font-bold text-white shrink-0">
               {initials}
             </div>
             <div>
-              <div className="text-[13px] font-semibold text-white/85">
+              <div className="text-[13px] font-semibold text-slate-900">
                 {displayName}
               </div>
-              <div className="text-[11px] text-white/35">
+              <div className="text-[11px] text-slate-400">
                 {mode === "farmer" ? "Farmer" : "Buyer"}
               </div>
             </div>

@@ -3,7 +3,7 @@ import { useAppContext } from "../context/AppContext";
 
 const GRADE_COLOR: Record<string, string> = {
   A: "#10B981",
-  B: "#0EA5E9",
+  B: "#E0185B",
   C: "#D97706",
   D: "#EF4444",
 };
@@ -15,19 +15,21 @@ const GRAIN_EMOJI: Record<string, string> = {
 };
 
 const STATUS_LABEL: Record<string, { text: string; cls: string }> = {
-  PENDING:  { text: 'Pending payment',   cls: 'bg-amber-50 text-amber-600' },
-  PAID:     { text: 'Payment received',  cls: 'bg-sky-50 text-sky-600' },
-  RELEASED: { text: 'Funds released',    cls: 'bg-emerald-50 text-emerald-700' },
-  DISPUTED: { text: 'Disputed',          cls: 'bg-red-50 text-red-600' },
-  REFUNDED: { text: 'Refunded',          cls: 'bg-slate-100 text-slate-500' },
-}
+  PENDING: { text: "Pending payment", cls: "bg-amber-50 text-amber-600" },
+  PAID: { text: "Payment received", cls: "bg-[#fdf0f5] text-[#E0185B]" },
+  RELEASED: { text: "Funds released", cls: "bg-emerald-50 text-emerald-700" },
+  DISPUTED: { text: "Disputed", cls: "bg-red-50 text-red-600" },
+  REFUNDED: { text: "Refunded", cls: "bg-slate-100 text-slate-500" },
+};
 
 export default function BuyerDashboard() {
   const navigate = useNavigate();
   const { scanResult, transactionRef, transactionStatus } = useAppContext();
 
   const hasActiveTx = !!(scanResult && transactionRef && transactionStatus);
-  const statusLabel = transactionStatus ? STATUS_LABEL[transactionStatus] : null;
+  const statusLabel = transactionStatus
+    ? STATUS_LABEL[transactionStatus]
+    : null;
 
   return (
     <div>
@@ -46,7 +48,7 @@ export default function BuyerDashboard() {
           </button>
           {hasActiveTx && (
             <button
-              className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] shadow-sky hover:bg-sky-600 hover:-translate-y-px"
+              className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-[13px] font-semibold rounded-[6px] border-0 bg-[#E0185B] text-white cursor-pointer transition-all duration-[220ms]  hover:bg-[#c8144f] hover:-translate-y-px"
               onClick={() => navigate("/buyer/payment")}
             >
               View Payment
@@ -60,21 +62,27 @@ export default function BuyerDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="p-6 bg-white border border-slate-900/[0.06] rounded-[20px]">
             <div className="flex items-start justify-between mb-3">
-              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">Active Offers</div>
+              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">
+                Active Offers
+              </div>
               <div className="w-2 h-2 rounded-full mt-[3px] bg-amber-400" />
             </div>
             <div className="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-none mb-[6px]">
               {hasActiveTx ? "1" : "0"}
             </div>
             <div className="text-xs font-medium text-slate-400">
-              {hasActiveTx && statusLabel ? statusLabel.text : "No active offers"}
+              {hasActiveTx && statusLabel
+                ? statusLabel.text
+                : "No active offers"}
             </div>
           </div>
 
           <div className="p-6 bg-white border border-slate-900/[0.06] rounded-[20px]">
             <div className="flex items-start justify-between mb-3">
-              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">In Escrow</div>
-              <div className="w-2 h-2 rounded-full mt-[3px] bg-sky-500" />
+              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">
+                In Escrow
+              </div>
+              <div className="w-2 h-2 rounded-full mt-[3px] bg-[#E0185B]" />
             </div>
             <div className="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-none mb-[6px]">
               {hasActiveTx ? scanResult!.priceInfo.totalAmount : "—"}
@@ -86,24 +94,34 @@ export default function BuyerDashboard() {
 
           <div className="p-6 bg-white border border-slate-900/[0.06] rounded-[20px]">
             <div className="flex items-start justify-between mb-3">
-              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">AI Grade</div>
+              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">
+                AI Grade
+              </div>
               <div
                 className="w-2 h-2 rounded-full mt-[3px]"
-                style={{ background: scanResult ? (GRADE_COLOR[scanResult.ai.grade] ?? "#94a3b8") : "#94a3b8" }}
+                style={{
+                  background: scanResult
+                    ? (GRADE_COLOR[scanResult.ai.grade] ?? "#94a3b8")
+                    : "#94a3b8",
+                }}
               />
             </div>
             <div className="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-none mb-[6px]">
               {scanResult ? `Grade ${scanResult.ai.grade}` : "—"}
             </div>
             <div className="text-xs font-medium text-slate-400">
-              {scanResult ? `${scanResult.ai.confidence}% confidence` : "No scan yet"}
+              {scanResult
+                ? `${scanResult.ai.confidence}% confidence`
+                : "No scan yet"}
             </div>
           </div>
 
           <div className="p-6 bg-white border border-slate-900/[0.06] rounded-[20px]">
             <div className="flex items-start justify-between mb-3">
-              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">AI Score</div>
-              <div className="w-2 h-2 rounded-full mt-[3px] bg-violet-500" />
+              <div className="text-xs font-medium tracking-[0.04em] uppercase text-slate-400">
+                AI Score
+              </div>
+              <div className="w-2 h-2 rounded-full mt-[3px] bg-[#E0185B]" />
             </div>
             <div className="text-[28px] font-bold tracking-[-0.03em] text-slate-900 leading-none mb-[6px]">
               {scanResult ? scanResult.ai.aiScore.toFixed(1) : "—"}
@@ -121,8 +139,12 @@ export default function BuyerDashboard() {
               <div className="px-5 pt-5">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
                   <div>
-                    <div className="text-base font-bold tracking-[-0.02em] text-slate-900">Available Grain</div>
-                    <div className="text-xs text-slate-400 mt-0.5">AI-verified offers</div>
+                    <div className="text-base font-bold tracking-[-0.02em] text-slate-900">
+                      Available Grain
+                    </div>
+                    <div className="text-xs text-slate-400 mt-0.5">
+                      AI-verified offers
+                    </div>
                   </div>
                 </div>
               </div>
@@ -130,14 +152,17 @@ export default function BuyerDashboard() {
                 {scanResult ? (
                   <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-[10px] bg-slate-50">
                     <div className="w-11 h-11 rounded-[10px] bg-white border border-slate-100 flex items-center justify-center text-xl shrink-0 shadow-sm">
-                      {GRAIN_EMOJI[scanResult.priceInfo.quantity?.split(" ")[1]] ?? "🌾"}
+                      {GRAIN_EMOJI[
+                        scanResult.priceInfo.quantity?.split(" ")[1]
+                      ] ?? "🌾"}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-semibold text-slate-900 tracking-[-0.01em]">
                         {scanResult.priceInfo.quantity}
                       </div>
                       <div className="text-xs text-slate-400 mt-0.5">
-                        Ref: {scanResult.transactionRef} · {scanResult.priceInfo.source}
+                        Ref: {scanResult.transactionRef} ·{" "}
+                        {scanResult.priceInfo.source}
                       </div>
                     </div>
                     <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
@@ -146,8 +171,11 @@ export default function BuyerDashboard() {
                           <span
                             className="inline-flex items-center gap-[5px] px-[10px] py-[3px] text-[11px] font-semibold rounded-full"
                             style={{
-                              background: (GRADE_COLOR[scanResult.ai.grade] ?? "#94a3b8") + "18",
-                              color: GRADE_COLOR[scanResult.ai.grade] ?? "#64748b",
+                              background:
+                                (GRADE_COLOR[scanResult.ai.grade] ??
+                                  "#94a3b8") + "18",
+                              color:
+                                GRADE_COLOR[scanResult.ai.grade] ?? "#64748b",
                             }}
                           >
                             Grade {scanResult.ai.grade}
@@ -157,8 +185,12 @@ export default function BuyerDashboard() {
                           </span>
                         </div>
                         <div className="flex flex-wrap gap-2 sm:justify-end items-center">
-                          <div className="text-xs text-slate-400">{scanResult.priceInfo.unitPrice}/kg</div>
-                          <div className="text-[15px] font-bold text-slate-900">{scanResult.priceInfo.totalAmount}</div>
+                          <div className="text-xs text-slate-400">
+                            {scanResult.priceInfo.unitPrice}/kg
+                          </div>
+                          <div className="text-[15px] font-bold text-slate-900">
+                            {scanResult.priceInfo.totalAmount}
+                          </div>
                         </div>
                       </div>
                       <div className="flex gap-[6px] shrink-0">
@@ -169,7 +201,7 @@ export default function BuyerDashboard() {
                           Details
                         </button>
                         <button
-                          className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-xs font-semibold rounded-[6px] border-0 bg-sky-500 text-white cursor-pointer transition-all duration-[220ms] hover:bg-sky-600"
+                          className="inline-flex items-center justify-center gap-2 py-[7px] px-[14px] text-xs font-semibold rounded-[6px] border-0 bg-[#E0185B] text-white cursor-pointer transition-all duration-[220ms] hover:bg-[#c8144f]"
                           onClick={() => navigate("/buyer/payment")}
                         >
                           Pay Now
@@ -179,14 +211,17 @@ export default function BuyerDashboard() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-3 py-10 px-4 text-center">
-                    <div className="text-sm font-semibold text-slate-900">No offers available</div>
+                    <div className="text-sm font-semibold text-slate-900">
+                      No offers available
+                    </div>
                     <div className="text-xs text-slate-400">
-                      Grain offers appear here once a farmer completes an AI scan
+                      Grain offers appear here once a farmer completes an AI
+                      scan
                     </div>
                     <div className="mt-1 text-xs text-slate-400">
                       Have a transaction reference?{" "}
                       <button
-                        className="text-sky-500 font-semibold border-0 bg-transparent cursor-pointer p-0"
+                        className="text-[#E0185B] font-semibold border-0 bg-transparent cursor-pointer p-0"
                         onClick={() => navigate("/verify")}
                       >
                         Verify delivery →
@@ -200,29 +235,56 @@ export default function BuyerDashboard() {
             {/* AI quality breakdown when scan exists */}
             {scanResult && (
               <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
-                <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-4">AI Quality Breakdown</div>
+                <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-4">
+                  AI Quality Breakdown
+                </div>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { label: "Model Score", value: scanResult.ai.breakdown.model_score.toFixed(1) },
-                    { label: "Anomaly Score", value: scanResult.ai.breakdown.anomaly_score.toFixed(1) },
-                    { label: "Defect Assessment", value: scanResult.ai.breakdown.defect_assessment },
-                    { label: "Moisture", value: scanResult.ai.breakdown.moisture_assessment },
+                    {
+                      label: "Model Score",
+                      value: scanResult.ai.breakdown.model_score.toFixed(1),
+                    },
+                    {
+                      label: "Anomaly Score",
+                      value: scanResult.ai.breakdown.anomaly_score.toFixed(1),
+                    },
+                    {
+                      label: "Defect Assessment",
+                      value: scanResult.ai.breakdown.defect_assessment,
+                    },
+                    {
+                      label: "Moisture",
+                      value: scanResult.ai.breakdown.moisture_assessment,
+                    },
                   ].map((m) => (
-                    <div key={m.label} className="bg-slate-50 rounded-[10px] p-3">
-                      <div className="text-[10px] text-slate-400 font-medium uppercase tracking-[0.04em] mb-1">{m.label}</div>
-                      <div className="text-sm font-bold text-slate-900">{m.value}</div>
+                    <div
+                      key={m.label}
+                      className="bg-slate-50 rounded-[10px] p-3"
+                    >
+                      <div className="text-[10px] text-slate-400 font-medium uppercase tracking-[0.04em] mb-1">
+                        {m.label}
+                      </div>
+                      <div className="text-sm font-bold text-slate-900">
+                        {m.value}
+                      </div>
                     </div>
                   ))}
                 </div>
                 {scanResult.ai.defects.length > 0 && (
                   <div className="mt-3 px-3 py-2 bg-red-50 rounded-[8px]">
-                    <div className="text-[11px] font-semibold text-red-600 mb-1">Defects Detected</div>
-                    <div className="text-xs text-red-700">{scanResult.ai.defects.join(", ")}</div>
+                    <div className="text-[11px] font-semibold text-red-600 mb-1">
+                      Defects Detected
+                    </div>
+                    <div className="text-xs text-red-700">
+                      {scanResult.ai.defects.join(", ")}
+                    </div>
                   </div>
                 )}
                 {scanResult.ai.defects.length === 0 && (
                   <div className="mt-3 px-3 py-2 bg-emerald-50 rounded-[8px]">
-                    <div className="text-xs text-emerald-700 font-semibold">No defects detected — clean sample</div>
+                    <div className="text-xs text-emerald-700 font-semibold">
+                      No defects detected — clean sample
+                    </div>
                   </div>
                 )}
               </div>
@@ -232,7 +294,9 @@ export default function BuyerDashboard() {
           <div className="flex flex-col gap-5">
             {/* Active escrow from context */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
-              <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-4">Escrow Status</div>
+              <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-4">
+                Escrow Status
+              </div>
               {hasActiveTx ? (
                 <>
                   <div
@@ -247,19 +311,31 @@ export default function BuyerDashboard() {
                         {scanResult!.priceInfo.totalAmount}
                       </div>
                     </div>
-                    <div className="text-xs text-slate-500 mb-2">{scanResult!.priceInfo.quantity}</div>
+                    <div className="text-xs text-slate-500 mb-2">
+                      {scanResult!.priceInfo.quantity}
+                    </div>
                     <div className="flex items-center gap-2">
                       <div className="flex-1 h-[6px] bg-slate-100 rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full w-[25%]"
-                          style={{ background: "linear-gradient(90deg,#0EA5E9,#10B981)" }}
+                          style={{
+                            background:
+                              "linear-gradient(90deg,#FF4C1D,#9B0063)",
+                          }}
                         />
                       </div>
-                      <div className="text-xs font-semibold text-sky-500">25%</div>
+                      <div className="text-xs font-semibold text-[#E0185B]">
+                        25%
+                      </div>
                     </div>
                     {statusLabel && (
-                      <div className="text-[11px] mt-1 font-semibold" style={{ color: 'inherit' }}>
-                        <span className={`inline-flex items-center px-2 py-[2px] rounded-full text-[10px] font-semibold ${statusLabel.cls}`}>
+                      <div
+                        className="text-[11px] mt-1 font-semibold"
+                        style={{ color: "inherit" }}
+                      >
+                        <span
+                          className={`inline-flex items-center px-2 py-[2px] rounded-full text-[10px] font-semibold ${statusLabel.cls}`}
+                        >
                           {statusLabel.text}
                         </span>
                       </div>
@@ -274,8 +350,12 @@ export default function BuyerDashboard() {
                 </>
               ) : (
                 <div className="flex flex-col items-center gap-2 py-6 text-center">
-                  <div className="text-sm font-semibold text-slate-900">No active escrow</div>
-                  <div className="text-xs text-slate-400">Escrow activates once you make a payment</div>
+                  <div className="text-sm font-semibold text-slate-900">
+                    No active escrow
+                  </div>
+                  <div className="text-xs text-slate-400">
+                    Escrow activates once you make a payment
+                  </div>
                 </div>
               )}
             </div>
@@ -283,22 +363,30 @@ export default function BuyerDashboard() {
             {/* Payment instructions if active */}
             {hasActiveTx && (
               <div className="bg-white border border-slate-900/[0.06] rounded-[20px] shadow-sm overflow-hidden p-5">
-                <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-3">Payment Instructions</div>
+                <div className="text-base font-bold tracking-[-0.02em] text-slate-900 mb-3">
+                  Payment Instructions
+                </div>
                 <div className="flex flex-col gap-2 text-[13px]">
                   <div className="flex justify-between py-1 border-b border-slate-50">
                     <span className="text-slate-400">Bank</span>
-                    <span className="font-semibold text-slate-900">{scanResult!.paymentDetails.bank}</span>
+                    <span className="font-semibold text-slate-900">
+                      {scanResult!.paymentDetails.bank}
+                    </span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-slate-50">
                     <span className="text-slate-400">Account</span>
-                    <span className="font-mono font-semibold text-slate-900">{scanResult!.paymentDetails.accountNumber}</span>
+                    <span className="font-mono font-semibold text-slate-900">
+                      {scanResult!.paymentDetails.accountNumber}
+                    </span>
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-slate-400">Amount</span>
-                    <span className="font-bold text-slate-900">{scanResult!.priceInfo.totalAmount}</span>
+                    <span className="font-bold text-slate-900">
+                      {scanResult!.priceInfo.totalAmount}
+                    </span>
                   </div>
                 </div>
-                <div className="mt-3 px-3 py-2 bg-sky-50 rounded-[8px] text-xs text-sky-700">
+                <div className="mt-3 px-3 py-2 bg-[#fdf0f5] rounded-[8px] text-xs text-[#a01040]">
                   {scanResult!.paymentDetails.instructions}
                 </div>
                 <div className="mt-3 px-3 py-2 bg-slate-50 rounded-[8px] text-xs text-slate-500">

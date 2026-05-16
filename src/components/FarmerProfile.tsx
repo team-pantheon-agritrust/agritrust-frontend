@@ -10,7 +10,7 @@ const gradeColors: Record<string, string> = {
   BRONZE:   '#CD7F32',
   SILVER:   '#94A3B8',
   GOLD:     '#D97706',
-  PLATINUM: '#0EA5E9',
+  PLATINUM: '#E0185B',
 }
 
 export default function FarmerProfile() {
@@ -67,7 +67,7 @@ export default function FarmerProfile() {
       <div className="max-w-[560px] mx-auto p-8">
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-slate-200 border-t-sky-500 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-slate-200 border-t-[#E0185B] rounded-full animate-spin" />
           </div>
         )}
 
@@ -81,7 +81,7 @@ export default function FarmerProfile() {
           <>
             {/* Profile header */}
             <div className="bg-white border border-slate-900/[0.06] rounded-[24px] shadow-sm p-7 mb-5 flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center text-xl font-bold text-white mb-3">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#FF4C1D] to-[#9B0063] flex items-center justify-center text-xl font-bold text-white mb-3">
                 {farmerProfile?.firstName?.[0]}{farmerProfile?.lastName?.[0]}
               </div>
               <div className="text-lg font-bold text-slate-900 tracking-[-0.02em]">

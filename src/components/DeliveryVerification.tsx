@@ -49,14 +49,14 @@ export default function DeliveryVerification() {
           <form onSubmit={handleSubmit} className="bg-white border border-slate-900/[0.06] rounded-[24px] shadow-sm p-7 flex flex-col gap-5">
             <div>
               <label className="block text-[13px] font-semibold text-slate-700 mb-[6px]">
-                Transaction reference <span className="text-sky-500">*</span>
+                Transaction reference <span className="text-[#E0185B]">*</span>
               </label>
               <input
                 type="text"
                 value={txRef}
                 onChange={e => setTxRef(e.target.value)}
                 placeholder="GT_..."
-                className="w-full px-[14px] py-[10px] text-sm text-slate-900 bg-white border-[1.5px] border-slate-200 rounded-[10px] outline-none transition focus:border-sky-500 focus:shadow-[0_0_0_3px_rgba(14,165,233,0.12)] placeholder:text-slate-400 font-mono"
+                className="w-full px-[14px] py-[10px] text-sm text-slate-900 bg-white border-[1.5px] border-slate-200 rounded-[10px] outline-none transition focus:border-[#E0185B] focus:shadow-[0_0_0_3px_rgba(224,24,91,0.12)] placeholder:text-slate-400 font-mono"
               />
             </div>
 
@@ -68,7 +68,7 @@ export default function DeliveryVerification() {
                     key={g}
                     className={`flex items-center justify-center py-3 rounded-[10px] border-[1.5px] cursor-pointer font-bold text-lg transition-all duration-200 ${
                       deliveryGrade === g
-                        ? 'border-sky-500 bg-sky-50 text-sky-600'
+                        ? 'border-[#E0185B] bg-[#fdf0f5] text-[#E0185B]'
                         : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300'
                     }`}
                   >
