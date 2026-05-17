@@ -89,3 +89,61 @@ export interface ApiError {
   status: 'error'
   message: string
 }
+
+// Virtual account creation
+export interface CreateVirtualAccountPayload {
+  customer_identifier: string
+  first_name: string
+  last_name: string
+  mobile_num: string
+  email: string
+  bvn: string
+  dob: string
+  address: string
+  gender: '1' | '2'
+  beneficiary_account?: string
+}
+
+export interface CreateVirtualAccountResponse {
+  status: string
+  data: {
+    virtual_account_number: string
+    bank_code: string
+    first_name: string
+    last_name: string
+    customer_identifier: string
+    beneficiary_account: string | null
+    created_at: string
+  }
+}
+
+// Payment status
+export type EscrowStatus = 'awaiting_payment' | 'funds_received' | 'approved' | 'released' | 'failed'
+
+export interface PaymentStatusResponse {
+  status: EscrowStatus
+  amountPaid?: number
+  paidAt?: string
+  txRef: string
+}
+
+// Transfer
+export interface InitiateTransferPayload {
+  txRef: string
+  farmerAccountNumber: string
+  farmerBankCode: string
+  farmerAccountName: string
+  amount: number
+  remark?: string
+}
+
+export interface InitiateTransferResponse {
+  status: string
+  message: string
+  data?: {
+    transaction_reference: string
+    response_description: string
+    nip_transaction_reference: string
+    amount: string
+  }
+}

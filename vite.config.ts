@@ -6,6 +6,15 @@ import babel from '@rolldown/plugin-babel'
 export default defineConfig({
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] })
+    babel({ presets: [reactCompilerPreset()] }),
   ],
+  server: {
+    proxy: {
+      '/squad-proxy': {
+        target: 'https://sandbox-api-d.squadco.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/squad-proxy/, ''),
+      },
+    },
+  },
 })

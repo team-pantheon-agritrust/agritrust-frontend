@@ -7,6 +7,17 @@ import type {
   InitiateSalePayload,
 } from '../types'
 
+// Direct Squad API calls (virtual account, payment status, transfer)
+export {
+  createVirtualAccount,
+  getVirtualAccount,
+  checkPaymentStatus,
+  initiateTransfer,
+  lookupAccount,
+  requeryTransfer,
+  simulatePayment,
+} from './squadDirect'
+
 export async function gradeAndScan(payload: GradeAndScanPayload): Promise<GradeAndScanResponse> {
   const res = await client.post<GradeAndScanResponse>('/grade-and-scan', payload)
   return res.data
@@ -26,3 +37,4 @@ export async function initiateSale(payload: InitiateSalePayload): Promise<unknow
   const res = await client.post('/initiate-sale', payload)
   return res.data
 }
+
